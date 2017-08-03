@@ -1,0 +1,5 @@
+target 'G4Image' do
+
+pod 'FMDB'
+
+end

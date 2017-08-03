@@ -56,9 +56,12 @@
 		8B3F7F991F332D7500685441 /* zitiwen.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B3F7F6E1F332D7500685441 /* zitiwen.png */; };
 		8B3F7F9A1F332D7500685441 /* zitiwen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B3F7F6F1F332D7500685441 /* zitiwen@2x.png */; };
 		8B3F7F9B1F332D7500685441 /* zitiwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B3F7F701F332D7500685441 /* zitiwen@3x.png */; };
+		AABF0B72819B48ADE9F71AE7 /* libPods-G4Image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7209658D91EDA7A398412AE1 /* libPods-G4Image.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02689ACB96C59B1CA210629F /* Pods-G4Image.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G4Image.debug.xcconfig"; path = "Pods/Target Support Files/Pods-G4Image/Pods-G4Image.debug.xcconfig"; sourceTree = "<group>"; };
+		7209658D91EDA7A398412AE1 /* libPods-G4Image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-G4Image.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3F7F2B1F332C7E00685441 /* G4Image.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = G4Image.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3F7F2F1F332C7E00685441 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8B3F7F311F332C7E00685441 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 		8B3F7F6E1F332D7500685441 /* zitiwen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zitiwen.png; sourceTree = "<group>"; };
 		8B3F7F6F1F332D7500685441 /* zitiwen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zitiwen@2x.png"; sourceTree = "<group>"; };
 		8B3F7F701F332D7500685441 /* zitiwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zitiwen@3x.png"; sourceTree = "<group>"; };
+		A777A54EB86D4547454E0FFE /* Pods-G4Image.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G4Image.release.xcconfig"; path = "Pods/Target Support Files/Pods-G4Image/Pods-G4Image.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,17 +123,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AABF0B72819B48ADE9F71AE7 /* libPods-G4Image.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3DFF9E427B1DF40DFF9EAEC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7209658D91EDA7A398412AE1 /* libPods-G4Image.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8B3F7F221F332C7E00685441 = {
 			isa = PBXGroup;
 			children = (
 				8B3F7F2D1F332C7E00685441 /* G4Image */,
 				8B3F7F2C1F332C7E00685441 /* Products */,
+				F7B829C4E645BF294AE1F34C /* Pods */,
+				3DFF9E427B1DF40DFF9EAEC4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +231,15 @@
 			path = welcome;
 			sourceTree = "<group>";
 		};
+		F7B829C4E645BF294AE1F34C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				02689ACB96C59B1CA210629F /* Pods-G4Image.debug.xcconfig */,
+				A777A54EB86D4547454E0FFE /* Pods-G4Image.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -223,9 +247,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B3F7F421F332C7E00685441 /* Build configuration list for PBXNativeTarget "G4Image" */;
 			buildPhases = (
+				D678B14619FA74AFD7EB306E /* [CP] Check Pods Manifest.lock */,
 				8B3F7F271F332C7E00685441 /* Sources */,
 				8B3F7F281F332C7E00685441 /* Frameworks */,
 				8B3F7F291F332C7E00685441 /* Resources */,
+				F7C462B460CD73E952ECA1A2 /* [CP] Embed Pods Frameworks */,
+				38AE61E3956C6750D34ADE86 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -326,6 +353,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		38AE61E3956C6750D34ADE86 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-G4Image/Pods-G4Image-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D678B14619FA74AFD7EB306E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F7C462B460CD73E952ECA1A2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-G4Image/Pods-G4Image-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8B3F7F271F332C7E00685441 /* Sources */ = {
@@ -454,6 +529,7 @@
 		};
 		8B3F7F431F332C7E00685441 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02689ACB96C59B1CA210629F /* Pods-G4Image.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SC36A8Q9D5;
@@ -467,6 +543,7 @@
 		};
 		8B3F7F441F332C7E00685441 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A777A54EB86D4547454E0FFE /* Pods-G4Image.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SC36A8Q9D5;

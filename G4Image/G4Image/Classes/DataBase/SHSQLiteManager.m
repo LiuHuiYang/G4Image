@@ -41,7 +41,7 @@
 /// 将新创建的按钮保存在数据库中
 - (void)inserNewButton:(SHButton *)button {
  
-    NSString * sql = [NSString stringWithFormat:@"INSERT INTO DeviceButtonForZone (zoneID, buttonID, subnetID, deviceID, buttonKind, buttonRectSaved, buttonPara1, buttonPara2, buttonPara3, buttonPara4, buttonPara5, buttonPara6) VALUES (%zd, %zd, %d, %d, %d, '%@', %d, %d, %d, %d, %d, %d);",  button.zoneID, button.buttonID, button.subNetID, button.deviceID, button.buttonKind, NSStringFromCGRect(button.frame), button.buttonPara1, button.buttonPara2, button.buttonPara3, button.buttonPara4, button.buttonPara5, button.buttonPara6];
+    NSString * sql = [NSString stringWithFormat:@"INSERT INTO DeviceButtonForZone (zoneID, buttonID, subnetID, deviceID, deviceType, buttonRectSaved, buttonPara1, buttonPara2, buttonPara3, buttonPara4, buttonPara5, buttonPara6) VALUES (%zd, %zd, %d, %d, %d, '%@', %d, %d, %d, %d, %d, %d);",  button.zoneID, button.buttonID, button.subNetID, button.deviceID, button.deviceType, NSStringFromCGRect(button.frame), button.buttonPara1, button.buttonPara2, button.buttonPara3, button.buttonPara4, button.buttonPara5, button.buttonPara6];
     
     // 执行SQL
     [self insetData:sql];
@@ -58,7 +58,7 @@
 /// 获得当前区域的所有按钮
 - (NSMutableArray *)getAllButtonsForCurrentZone:(SHZone *)zone {
     
-    NSString *selectSql = [NSString stringWithFormat:@"SELECT zoneID, buttonID, subnetID, deviceID, buttonKind, buttonRectSaved, buttonPara1, buttonPara2, buttonPara3, buttonPara4, buttonPara5, buttonPara6 FROM DeviceButtonForZone WHERE zoneID = %zd;", zone.zoneID];
+    NSString *selectSql = [NSString stringWithFormat:@"SELECT zoneID, buttonID, subnetID, deviceID, deviceType, buttonRectSaved, buttonPara1, buttonPara2, buttonPara3, buttonPara4, buttonPara5, buttonPara6 FROM DeviceButtonForZone WHERE zoneID = %zd;", zone.zoneID];
     
     NSMutableArray *resArr = [self selectProprty:selectSql];
     NSMutableArray *allButtons = [NSMutableArray arrayWithCapacity:resArr.count];
@@ -235,7 +235,7 @@
      'buttonID' 		按钮ID
      'subnetID' 	按钮子网ID
      'deviceID' 	按钮设备ID
-     'buttonKind'   按钮的类型
+     'deviceType'   按钮的类型
      'buttonRectSaved' 	按钮的位置
      'buttonPara1' 	 	不同设备的参数1
      'buttonPara2' 	 	不同设备的参数2
@@ -249,7 +249,7 @@
     'buttonID' INTEGER PRIMARY KEY NOT NULL DEFAULT (1),\
     'subnetID' INTEGER NOT NULL DEFAULT (1),\
     'deviceID' INTEGER NOT NULL DEFAULT (0),\
-    'buttonKind' INTEGER NOT NULL DEFAULT (0), \
+    'deviceType' INTEGER NOT NULL DEFAULT (0), \
     'buttonRectSaved' TEXT,\
     'buttonPara1' INTEGER NOT NULL DEFAULT (0),\
     'buttonPara2' INTEGER NOT NULL DEFAULT (0),\

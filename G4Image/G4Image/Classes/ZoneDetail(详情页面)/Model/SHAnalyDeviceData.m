@@ -88,7 +88,7 @@
             for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
                 
                 // 这是灯光
-                if (button.subNetID == subNetID && button.deviceID == deviceID && channelNumber == button.buttonPara1 && button.buttonKind == ButtonKindLight) {
+                if (button.subNetID == subNetID && button.deviceID == deviceID && channelNumber == button.buttonPara1 && button.deviceType == SHDeviceButtonTypeLight) {
                     
                     [button setTitle:[NSString stringWithFormat:@"%d%%", brightness] forState:UIControlStateNormal];
                     
@@ -96,7 +96,7 @@
                 }
                 
                 // 窗帘
-                if (button.subNetID == subNetID && button.deviceID == deviceID && button.buttonKind == ButtonKindCurtain) {
+                if (button.subNetID == subNetID && button.deviceID == deviceID && button.deviceType == SHDeviceButtonTypeCurtain) {
                     
                     SHLog(@"这是窗帘 -- 这里不能设置");
                 }
@@ -125,10 +125,10 @@
                 for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
                     
                     // 这是Light
-                    if (button.subNetID == subNetID && button.deviceID == deviceID && (i + 1) == button.buttonPara1 && button.buttonKind == ButtonKindLight) {
+                    if (button.subNetID == subNetID && button.deviceID == deviceID && (i + 1) == button.buttonPara1 && button.deviceType == SHDeviceButtonTypeLight) {
                         
                         [button setTitle:[NSString stringWithFormat:@"%d%%", recivedData[startIndex + 1 + i]] forState:UIControlStateNormal];
-                    } else if (button.subNetID == subNetID && button.deviceID == deviceID && button.buttonKind == ButtonKindCurtain) {
+                    } else if (button.subNetID == subNetID && button.deviceID == deviceID && button.deviceType == SHDeviceButtonTypeCurtain) {
                         
                         SHLog(@"这是窗帘 -- 不能准确定位");
                     }
@@ -176,7 +176,7 @@
         
         // 设置按钮
         for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
-            if (button.buttonKind == ButtonKindMusic && button.subNetID == subNetID && button.deviceID == deviceID) {
+            if (button.deviceType == SHDeviceButtonTypeAudio && button.subNetID == subNetID && button.deviceID == deviceID) {
                 [button setTitle:playStatus forState:UIControlStateNormal];
             }
         }
@@ -187,7 +187,7 @@
         if (recivedData[10] == 0X01 && recivedData[11] == 0X03) {
             // 设置音量
             for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
-                if (button.buttonKind == ButtonKindMusic && button.subNetID == subNetID && button.deviceID == deviceID) {
+                if (button.deviceType == SHDeviceButtonTypeAudio && button.subNetID == subNetID && button.deviceID == deviceID) {
                     [button setTitle:[NSString stringWithFormat:@"%d", 80 - recivedData[12]] forState:UIControlStateNormal];
                 }
             }
@@ -211,7 +211,7 @@
     
     // 找到这个按钮
     for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
-        if (button.buttonKind == ButtonKindMediaTV && button.subNetID == subNetID && button.deviceID == deviceID) {
+        if (button.deviceType == SHDeviceButtonTypeMediaTV && button.subNetID == subNetID && button.deviceID == deviceID) {
             [button setTitle:title forState:UIControlStateNormal];
         }
     }
@@ -247,7 +247,7 @@
     
     // 找到button
     for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
-        if (button.buttonKind == ButtonKindLed && button.subNetID == subNetID && button.deviceID == deviceID) {
+        if (button.deviceType == SHDeviceButtonTypeLed && button.subNetID == subNetID && button.deviceID == deviceID) {
 
             // 设置显示图征的控件渲染模式为白色
             [button.imageView setTintColor:color];

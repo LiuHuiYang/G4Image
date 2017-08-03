@@ -83,8 +83,12 @@
 		8B6D0B321F334FAB00271E91 /* SHSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B301F334FAB00271E91 /* SHSettingViewController.m */; };
 		8B6D0B331F334FAB00271E91 /* SHSettingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B311F334FAB00271E91 /* SHSettingViewController.storyboard */; };
 		8B6D0B471F3350AE00271E91 /* SHZonePreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B421F3350AE00271E91 /* SHZonePreViewController.m */; };
-		8B6D0B481F3350AE00271E91 /* SHZonePreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B451F3350AE00271E91 /* SHZonePreViewCell.m */; };
-		8B6D0B491F3350AE00271E91 /* SHZonePreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B461F3350AE00271E91 /* SHZonePreViewCell.xib */; };
+		8B6D0B531F33558200271E91 /* SHZonePreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B511F33558200271E91 /* SHZonePreViewCell.m */; };
+		8B6D0B541F33558200271E91 /* SHZonePreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B521F33558200271E91 /* SHZonePreViewCell.xib */; };
+		8B6D0B591F33559B00271E91 /* SHSetAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B571F33559B00271E91 /* SHSetAreaView.m */; };
+		8B6D0B5A1F33559B00271E91 /* SHSetAreaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B581F33559B00271E91 /* SHSetAreaView.xib */; };
+		8B6D0B5F1F335C4000271E91 /* SHZoneDetailViewTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B5D1F335C4000271E91 /* SHZoneDetailViewTitleView.m */; };
+		8B6D0B601F335C4000271E91 /* SHZoneDetailViewTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */; };
 		AABF0B72819B48ADE9F71AE7 /* libPods-G4Image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7209658D91EDA7A398412AE1 /* libPods-G4Image.a */; };
 /* End PBXBuildFile section */
 
@@ -202,9 +206,15 @@
 		8B6D0B311F334FAB00271E91 /* SHSettingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SHSettingViewController.storyboard; sourceTree = "<group>"; };
 		8B6D0B411F3350AE00271E91 /* SHZonePreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHZonePreViewController.h; sourceTree = "<group>"; };
 		8B6D0B421F3350AE00271E91 /* SHZonePreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHZonePreViewController.m; sourceTree = "<group>"; };
-		8B6D0B441F3350AE00271E91 /* SHZonePreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHZonePreViewCell.h; sourceTree = "<group>"; };
-		8B6D0B451F3350AE00271E91 /* SHZonePreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHZonePreViewCell.m; sourceTree = "<group>"; };
-		8B6D0B461F3350AE00271E91 /* SHZonePreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHZonePreViewCell.xib; sourceTree = "<group>"; };
+		8B6D0B501F33558200271E91 /* SHZonePreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHZonePreViewCell.h; sourceTree = "<group>"; };
+		8B6D0B511F33558200271E91 /* SHZonePreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHZonePreViewCell.m; sourceTree = "<group>"; };
+		8B6D0B521F33558200271E91 /* SHZonePreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHZonePreViewCell.xib; sourceTree = "<group>"; };
+		8B6D0B561F33559B00271E91 /* SHSetAreaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSetAreaView.h; sourceTree = "<group>"; };
+		8B6D0B571F33559B00271E91 /* SHSetAreaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSetAreaView.m; sourceTree = "<group>"; };
+		8B6D0B581F33559B00271E91 /* SHSetAreaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHSetAreaView.xib; sourceTree = "<group>"; };
+		8B6D0B5C1F335C4000271E91 /* SHZoneDetailViewTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHZoneDetailViewTitleView.h; sourceTree = "<group>"; };
+		8B6D0B5D1F335C4000271E91 /* SHZoneDetailViewTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHZoneDetailViewTitleView.m; sourceTree = "<group>"; };
+		8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHZoneDetailViewTitleView.xib; sourceTree = "<group>"; };
 		A777A54EB86D4547454E0FFE /* Pods-G4Image.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G4Image.release.xcconfig"; path = "Pods/Target Support Files/Pods-G4Image/Pods-G4Image.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -494,6 +504,8 @@
 		8B6D0B1E1F334F8800271E91 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8B6D0B5B1F335C4000271E91 /* SetTitle */,
+				8B6D0B551F33559B00271E91 /* setArea */,
 				8B6D0B1F1F334F8800271E91 /* ColorWheel */,
 				8B6D0B241F334F8800271E91 /* SHZoneView.h */,
 				8B6D0B251F334F8800271E91 /* SHZoneView.m */,
@@ -551,11 +563,31 @@
 		8B6D0B431F3350AE00271E91 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8B6D0B441F3350AE00271E91 /* SHZonePreViewCell.h */,
-				8B6D0B451F3350AE00271E91 /* SHZonePreViewCell.m */,
-				8B6D0B461F3350AE00271E91 /* SHZonePreViewCell.xib */,
+				8B6D0B501F33558200271E91 /* SHZonePreViewCell.h */,
+				8B6D0B511F33558200271E91 /* SHZonePreViewCell.m */,
+				8B6D0B521F33558200271E91 /* SHZonePreViewCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8B6D0B551F33559B00271E91 /* setArea */ = {
+			isa = PBXGroup;
+			children = (
+				8B6D0B561F33559B00271E91 /* SHSetAreaView.h */,
+				8B6D0B571F33559B00271E91 /* SHSetAreaView.m */,
+				8B6D0B581F33559B00271E91 /* SHSetAreaView.xib */,
+			);
+			path = setArea;
+			sourceTree = "<group>";
+		};
+		8B6D0B5B1F335C4000271E91 /* SetTitle */ = {
+			isa = PBXGroup;
+			children = (
+				8B6D0B5C1F335C4000271E91 /* SHZoneDetailViewTitleView.h */,
+				8B6D0B5D1F335C4000271E91 /* SHZoneDetailViewTitleView.m */,
+				8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */,
+			);
+			path = SetTitle;
 			sourceTree = "<group>";
 		};
 		F7B829C4E645BF294AE1F34C /* Pods */ = {
@@ -636,6 +668,7 @@
 				8B3F7F741F332D7500685441 /* iPad.png in Resources */,
 				8B3F7F831F332D7500685441 /* LaunchScreen.png in Resources */,
 				8B3F7F9A1F332D7500685441 /* zitiwen@2x.png in Resources */,
+				8B6D0B5A1F33559B00271E91 /* SHSetAreaView.xib in Resources */,
 				8B3F7F3E1F332C7E00685441 /* LaunchScreen.storyboard in Resources */,
 				8B3F7F821F332D7500685441 /* iPhone6Plus@3x.png in Resources */,
 				8B3F7F7E1F332D7500685441 /* iPhone6@2x.png in Resources */,
@@ -643,7 +676,6 @@
 				8B3F7F9B1F332D7500685441 /* zitiwen@3x.png in Resources */,
 				8B3F7F951F332D7500685441 /* line06@3x.png in Resources */,
 				8B3F7F8D1F332D7500685441 /* line04.png in Resources */,
-				8B6D0B491F3350AE00271E91 /* SHZonePreViewCell.xib in Resources */,
 				8B3F7F901F332D7500685441 /* line05.png in Resources */,
 				8B3F7F3B1F332C7E00685441 /* Assets.xcassets in Resources */,
 				8B3F7F8F1F332D7500685441 /* line04@3x.png in Resources */,
@@ -654,6 +686,7 @@
 				8B3F7F761F332D7500685441 /* iPad@3x.png in Resources */,
 				8B3F7F871F332D7500685441 /* line02.png in Resources */,
 				8B3F7F851F332D7500685441 /* line01@2x.png in Resources */,
+				8B6D0B601F335C4000271E91 /* SHZoneDetailViewTitleView.xib in Resources */,
 				8B3F7F881F332D7500685441 /* line02@2x.png in Resources */,
 				8B3F7F801F332D7500685441 /* iPhone6Plus.png in Resources */,
 				8B3F7F841F332D7500685441 /* line01.png in Resources */,
@@ -662,6 +695,7 @@
 				8B3F7F7D1F332D7500685441 /* iPhone6.png in Resources */,
 				8B3F7F7A1F332D7500685441 /* iPhone5.png in Resources */,
 				8B3F7F941F332D7500685441 /* line06@2x.png in Resources */,
+				8B6D0B541F33558200271E91 /* SHZonePreViewCell.xib in Resources */,
 				8B3F7F8C1F332D7500685441 /* line03@3x.png in Resources */,
 				8B3F7F711F332D7500685441 /* gezi.png in Resources */,
 				8B3F7F731F332D7500685441 /* gezi@3x.png in Resources */,
@@ -743,9 +777,9 @@
 				8B6D0B0A1F334F5100271E91 /* SHNavigationController.m in Sources */,
 				8B6D0ADD1F334E9700271E91 /* UIButton+init.m in Sources */,
 				8B6D0AEB1F334EE400271E91 /* GCDAsyncUdpSocket.m in Sources */,
-				8B6D0B481F3350AE00271E91 /* SHZonePreViewCell.m in Sources */,
 				8B6D0B0B1F334F5100271E91 /* SHViewController.m in Sources */,
 				8B6D0B2C1F334F8800271E91 /* SHZoneView.m in Sources */,
+				8B6D0B531F33558200271E91 /* SHZonePreViewCell.m in Sources */,
 				8B6D0B281F334F8800271E91 /* SHAnalyDeviceData.m in Sources */,
 				8B6D0AEC1F334EE400271E91 /* SHUdpSocket.m in Sources */,
 				8B6D0B261F334F8800271E91 /* SHSelectColorViewController.m in Sources */,
@@ -755,10 +789,12 @@
 				8B6D0B111F334F5100271E91 /* SHUtility.m in Sources */,
 				8B6D0B101F334F5100271E91 /* SHButton.m in Sources */,
 				8B3F7F301F332C7E00685441 /* main.m in Sources */,
+				8B6D0B591F33559B00271E91 /* SHSetAreaView.m in Sources */,
 				8B6D0AF41F334F1800271E91 /* SHZone.m in Sources */,
 				8B6D0AE01F334E9700271E91 /* UIView+frame.m in Sources */,
 				8B6D0ADC1F334E9700271E91 /* UIBarButtonItem+init.m in Sources */,
 				8B6D0AED1F334EE400271E91 /* UIDevice+IPAddresses.m in Sources */,
+				8B6D0B5F1F335C4000271E91 /* SHZoneDetailViewTitleView.m in Sources */,
 				8B6D0ADF1F334E9700271E91 /* UIImage+Rotate.m in Sources */,
 				8B6D0B0F1F334F5100271E91 /* SHConstant.m in Sources */,
 				8B6D0B321F334FAB00271E91 /* SHSettingViewController.m in Sources */,

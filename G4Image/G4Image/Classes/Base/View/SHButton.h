@@ -22,18 +22,18 @@ typedef enum  {
 /// 按钮类型
 typedef enum  {
     
-    ButtonKindNone,
+    SHDeviceButtonTypeNone,
     
-    ButtonKindLight,
-    ButtonKindLed,
+    SHDeviceButtonTypeLight,
+    SHDeviceButtonTypeLed,
 
-    ButtonKindAC,
-    ButtonKindMusic,
+    SHDeviceButtonTypeAirConditioning,
+    SHDeviceButtonTypeAudio,
 
-    ButtonKindCurtain,
-    ButtonKindMediaTV
+    SHDeviceButtonTypeCurtain,
+    SHDeviceButtonTypeMediaTV
     
-} ButtonKind ;
+} SHDeviceButtonType ;
 
 
 @interface SHButton : UIButton
@@ -51,7 +51,7 @@ typedef enum  {
 @property (nonatomic, assign) Byte deviceID;
 
 /// 按钮类型
-@property (assign,nonatomic ) ButtonKind buttonKind;
+@property (assign,nonatomic ) SHDeviceButtonType deviceType;
 
 
 #pragma mark - 不同的参数(不同设备不同)

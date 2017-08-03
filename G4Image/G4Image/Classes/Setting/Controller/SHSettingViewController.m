@@ -48,11 +48,11 @@
     self.settingButton.subNetID = (Byte)self.subNetTextField.text.integerValue;
     self.settingButton.deviceID = (Byte)self.deviceTextField.text.integerValue;
     
-    if (self.settingButton.buttonKind == ButtonKindLight) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeLight) {
         self.settingButton.buttonPara1 = (Byte)self.dimmerChannel.text.integerValue;
     }
     
-    if (self.settingButton.buttonKind == ButtonKindCurtain) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeCurtain) {
         self.settingButton.buttonPara1 = (Byte)self.curtainOpenChannel.text.integerValue;
         self.settingButton.buttonPara2 = (Byte)self.curtainCloseChannel.text.integerValue;
     }
@@ -98,11 +98,11 @@
     self.deviceTextField.text = [NSString stringWithFormat:@"%d", self.settingButton.deviceID];
     
     
-    if (self.settingButton.buttonKind == ButtonKindLight) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeLight) {
         self.dimmerChannel.text = [NSString stringWithFormat:@"%d", self.settingButton.buttonPara1];
     }
     
-    if (self.settingButton.buttonKind == ButtonKindCurtain) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeCurtain) {
         self.curtainOpenChannel.text = [NSString stringWithFormat:@"%d", self.settingButton.buttonPara1];
         self.curtainCloseChannel.text = [NSString stringWithFormat:@"%d", self.settingButton.buttonPara2];
     }
@@ -125,20 +125,20 @@
     [super viewWillAppear:animated];
     
     // 如果是调光器
-    if (self.settingButton.buttonKind == ButtonKindLight) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeLight) {
 //        self.dimmerLabel.text = @"Dimmer Channel NO.";
         self.dimmerChannel.hidden = NO;
         self.dimmerLabel.hidden = NO;
     }
     
-    if (self.settingButton.buttonKind == ButtonKindMediaTV) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeMediaTV) {
 //        self.dimmerLabel.text = @"TV Channel NO.";
         self.dimmerChannel.hidden = NO;
         self.dimmerLabel.hidden = NO;
     }
     
     // 如果是窗帘
-    if (self.settingButton.buttonKind == ButtonKindCurtain) {
+    if (self.settingButton.deviceType == SHDeviceButtonTypeCurtain) {
         
         self.curtainCloseLabel.hidden = NO;
         self.curtainOpenLabel.hidden = NO;

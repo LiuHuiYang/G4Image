@@ -334,31 +334,31 @@ const Byte maxVol = 80; // 其它只有80
 + (void)readDeviceStatus:(SHButton *)button {
     
     // 发送读取数据的指令
-    switch (button.buttonKind) {
+    switch (button.deviceType) {
             
             // 调光器
-        case ButtonKindLight:
+        case SHDeviceButtonTypeLight:
             [self readDimmerStatus:button];
             break;
             
             // 空调
-        case ButtonKindAC: {
+        case SHDeviceButtonTypeAirConditioning: {
             [self readTemperatureValue:button];
         }
             break;
             
             // 窗帘
-        case ButtonKindCurtain: {
+        case SHDeviceButtonTypeCurtain: {
             // 和读调光器一样, 但没有意义
         }
             break;
             
-        case ButtonKindMusic: {
+        case SHDeviceButtonTypeAudio: {
             // ... 暂时没有读
         }
             break;
             
-        case ButtonKindLed: {
+        case SHDeviceButtonTypeLed: {
             // 读取lED
             [self readLedCurrentColor:button];
         }

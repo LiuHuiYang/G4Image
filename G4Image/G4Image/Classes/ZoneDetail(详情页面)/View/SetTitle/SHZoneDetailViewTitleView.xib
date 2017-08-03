@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SHZoneDetailViewTitleView">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="66"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbc-yS-wsl" userLabel="bgView">
+                    <rect key="frame" x="0.0" y="0.0" width="348" height="66"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Zone Name" clearsOnBeginEditing="YES" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fyV-8t-nbp">
+                            <rect key="frame" x="149" y="18" width="184" height="30"/>
+                            <color key="textColor" red="0.98039215686274506" green="0.20392156862745098" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="2kg-q2-332"/>
+                            </connections>
+                        </textField>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="G4Nav" translatesAutoresizingMaskIntoConstraints="NO" id="Ff7-oN-poH">
+                            <rect key="frame" x="109" y="18.5" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="Dyc-dB-AcV"/>
+                                <constraint firstAttribute="width" constant="30" id="FMm-JT-Fgo"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="fyV-8t-nbp" firstAttribute="height" secondItem="Ff7-oN-poH" secondAttribute="height" id="4r9-II-sC4"/>
+                        <constraint firstItem="fyV-8t-nbp" firstAttribute="centerY" secondItem="bbc-yS-wsl" secondAttribute="centerY" id="8ud-ZX-J30"/>
+                        <constraint firstItem="Ff7-oN-poH" firstAttribute="centerY" secondItem="bbc-yS-wsl" secondAttribute="centerY" id="C04-KL-7gz"/>
+                        <constraint firstItem="fyV-8t-nbp" firstAttribute="leading" secondItem="Ff7-oN-poH" secondAttribute="trailing" constant="10" id="aO7-Bb-QW1"/>
+                        <constraint firstItem="Ff7-oN-poH" firstAttribute="centerX" secondItem="bbc-yS-wsl" secondAttribute="centerX" constant="-50" id="j5d-JG-h7o"/>
+                        <constraint firstAttribute="trailing" secondItem="fyV-8t-nbp" secondAttribute="trailing" constant="15" id="mMT-Ze-DrO"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="bbc-yS-wsl" secondAttribute="bottom" id="FHY-8I-reM"/>
+                <constraint firstItem="bbc-yS-wsl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Md2-q9-6yG"/>
+                <constraint firstAttribute="trailing" secondItem="bbc-yS-wsl" secondAttribute="trailing" id="e2H-nO-NsV"/>
+                <constraint firstItem="bbc-yS-wsl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xwa-n8-JbX"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="titleTextField" destination="fyV-8t-nbp" id="xey-Nh-64O"/>
+            </connections>
+            <point key="canvasLocation" x="39" y="-162"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="G4Nav" width="30" height="30"/>
+    </resources>
+</document>

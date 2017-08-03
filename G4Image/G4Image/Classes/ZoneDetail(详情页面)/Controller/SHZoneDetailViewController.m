@@ -14,16 +14,16 @@
 #import "SHSQLiteManager.h"
 
 #import "SHSelectColorViewController.h"
-#import <PhotosUI/PhotosUI.h>
 
+
+#import "SHSetAreaView.h"
+#import "SHZoneDetailViewTitleView.h"
 
 /// 按钮间距
 const CGFloat SHDeviceButtonPadding = 5;
 
-@interface SHZoneDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate, SHUdpSocketDelegate>
+@interface SHZoneDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate, SHUdpSocketDelegate, SHSetAreaViewDelegate>
 
-/// 底部工具条
-@property (weak, nonatomic) UIToolbar *toolBar;
 
 /// 选择不同的设备列表
 @property (strong, nonatomic) UIScrollView *selectDeviceButtonScrollView;
@@ -33,6 +33,12 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 /// 显示图片的位置
 @property (strong, nonatomic) SHZoneView *showZoneView;
+
+/// 调用区域场景列表【设置 && 选择列表】
+@property (nonatomic, strong) SHSetAreaView *setAreaView;
+
+/// 标题view
+@property (strong, nonatomic) SHZoneDetailViewTitleView* zoneTitleView;
 
 @end
 
@@ -46,7 +52,155 @@ const CGFloat SHDeviceButtonPadding = 5;
     [SHAnalyDeviceData analyDeviceData:data inZone:self.zone];
 }
 
-#pragma mark - UI
+// MARK: - 设备区域的代理回调
+
+/// 获得图片的代理回调
+- (void)setAreaViewPictureForZone:(UIImage *)image {
+    
+    // 修改比例为最初比例
+    self.zone.imageScale = 1.0;
+    
+    // 准备图征保存在沙盒中
+    [SHUtility writeImageToDocment:self.zone.zoneID data: image];
+    
+    // 设置图片
+    [self.showZoneView setImageForZone:image scale:self.zone.imageScale];
+    
+    // 保存当前区域
+    [[SHSQLiteManager shareSHSQLiteManager] inserNewZone:self.zone];
+}
+
+
+/// 显示设备列表的代理回调
+- (void)setAreaViewShowDeviceList:(UIButton *)deviceButton {
+    
+    self.selectDeviceButtonScrollView.hidden = !deviceButton.selected;
+    
+    // 控制手势来控制
+    self.showZoneView.scrollView.pinchGestureRecognizer.enabled = deviceButton.selected;
+    
+    // 选遍历区域中的子控件
+    for (SHButton *button in self.zone.allDeviceButtonInCurrentZone) {
+        
+        // 移除所有的手势
+        for (UIGestureRecognizer *recognizer in button.gestureRecognizers) {
+            [button removeGestureRecognizer:recognizer];
+        }
+        
+        // 选中才可以移动
+        if (deviceButton.selected) {
+            
+            // 添加两个新手势
+            UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(moveToTargetLocation:)];
+            [button addGestureRecognizer:panMove];
+            
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(setArgs:)];
+            longPress.minimumPressDuration = 1.5;
+            longPress.cancelsTouchesInView = YES;
+            [button addGestureRecognizer:longPress];
+            
+            // 没有选中做其他事情
+        } else {
+            
+            // 匹配不同的按钮类型再添加手势
+            switch (button.deviceType) {
+                    
+                case SHDeviceButtonTypeLight: {
+                    
+                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateLightValue:)];
+                    [panMove setTranslation:CGPointZero inView:button];
+                    [button addGestureRecognizer:panMove];
+                }
+                    
+                    break;
+                    
+                case SHDeviceButtonTypeCurtain: {
+                    
+                }
+                    break;
+                    
+                case  SHDeviceButtonTypeAudio: {
+                    
+                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateAuidoVOL:)];
+                    panMove.delegate = self;
+                    [panMove setTranslation:CGPointZero inView:button];
+                    [button addGestureRecognizer:panMove];
+                    
+                    UISwipeGestureRecognizer *toLeftDetail = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(toLeftAndRightDetail:)];
+                    toLeftDetail.delegate = self;
+                    toLeftDetail.direction=UISwipeGestureRecognizerDirectionLeft;
+                    [button addGestureRecognizer:toLeftDetail];
+                    
+                    UISwipeGestureRecognizer *toRightDetail = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(toLeftAndRightDetail:)];
+                    toRightDetail.delegate = self;
+                    toRightDetail.direction=UISwipeGestureRecognizerDirectionRight;
+                    [button addGestureRecognizer:toRightDetail];
+                    
+                    [panMove requireGestureRecognizerToFail:toLeftDetail];
+                    [panMove requireGestureRecognizerToFail:toRightDetail];
+                }
+                    break;
+                    
+                case SHDeviceButtonTypeAirConditioning: {
+                    
+                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateACTempture:)];
+                    [panMove setTranslation:CGPointZero inView:button];
+                    [button addGestureRecognizer:panMove];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }
+    
+    // 没有选中
+    if (!deviceButton.selected) {
+        
+        [self saveCurrentZone];
+    }
+    
+}
+
+/// 保存当前区域
+- (void)saveCurrentZone {
+    
+    // 获得名称
+    self.zone.zoneName = self.zoneTitleView.name;
+    
+    // 获得当前比例
+    self.zone.imageScale = self.showZoneView.scrollView.zoomScale;
+    
+    // 更新当前区域的所有信息
+    [[SHSQLiteManager shareSHSQLiteManager] saveCurrentZonesButtons:self.zone];
+}
+
+/// 删除这个区域的回调
+- (void)setAreaViewDeleteZone {
+    
+    if (self.isNew) {
+        return;
+    }
+    
+    // 数据库删除这个区域记录
+    [[SHSQLiteManager shareSHSQLiteManager] deleteCurrntZone:self.zone];
+    
+    // 删除图片
+    [SHUtility deleteImageFromDocment:self.zone.zoneID];
+    
+    // 回到预览
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+// MARK: - UI
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+    [self saveCurrentZone];
+}
 
 /// 进入界面不能缩放
 - (void)viewDidAppear:(BOOL)animated {
@@ -82,9 +236,6 @@ const CGFloat SHDeviceButtonPadding = 5;
     [self.view addSubview:self.selectDeviceButtonScrollView];
     self.selectDeviceButtonScrollView.hidden = YES;
     
-    // 5.设置底部的toolBar
-    [self setToolBar];
-    
     // 初始化socket设置代理
     [SHUdpSocket shareSHUdpSocket].delegate = self;
 }
@@ -92,7 +243,8 @@ const CGFloat SHDeviceButtonPadding = 5;
 /// 显示区域信息
 - (void)showZones {
     
-    [self.view addSubview:self.showZoneView];
+    
+    [self.view insertSubview:self.showZoneView belowSubview:self.setAreaView];
     
     // 获得当前区域的图片
     UIImage *image = [SHUtility getImageForZones:self.zone.zoneID];
@@ -116,9 +268,9 @@ const CGFloat SHDeviceButtonPadding = 5;
 - (void)addButtonModel:(SHButton *)button {
     
     // 匹配不同的按钮有不同的交互
-    switch (button.buttonKind) {
+    switch (button.deviceType) {
             
-        case  ButtonKindLight: {  // 灯
+        case  SHDeviceButtonTypeLight: {  // 灯
             
             [button buttonWithTitle:@"Light" imageName:@"Light" target:self action:@selector(lightPressed:)];
             // 增加值变化
@@ -128,7 +280,7 @@ const CGFloat SHDeviceButtonPadding = 5;
         }
             break;
             
-        case ButtonKindAC: { // 空调
+        case SHDeviceButtonTypeAirConditioning: { // 空调
             
             [button buttonWithTitle:@"OFF" imageName:@"AC" target:self action:@selector(acOnAndOff:)];
             
@@ -139,7 +291,7 @@ const CGFloat SHDeviceButtonPadding = 5;
         }
             break;
             
-        case  ButtonKindMusic: { // 音乐
+        case  SHDeviceButtonTypeAudio: { // 音乐
             
             [button buttonWithTitle:@"END" imageName:@"Audio" target:self action:@selector(musicPlayAndStop:)];
             
@@ -172,20 +324,20 @@ const CGFloat SHDeviceButtonPadding = 5;
         }
             break;
             
-        case ButtonKindCurtain: {
+        case SHDeviceButtonTypeCurtain: {
             
             [button buttonWithTitle:@"Curtain" imageName:@"Curtain" target:self action:@selector(curtainPressed:)];
         }
             
             break;
             
-        case ButtonKindMediaTV: { // 电视
+        case SHDeviceButtonTypeMediaTV: { // 电视
             
             [button buttonWithTitle:@"OFF" imageName:@"TV" target:self action:@selector(watchTvPressed:)];
         }
             break;
             
-        case ButtonKindLed: {
+        case SHDeviceButtonTypeLed: {
             
             // 增加监听
             [button buttonWithTitle:@"LED" imageName:@"LED" target:self action:@selector(setLedColor:)];
@@ -203,266 +355,28 @@ const CGFloat SHDeviceButtonPadding = 5;
 /// 设置导航栏
 - (void)setNavigationBar {
     
-    if (!self.isNew) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleDone target:self action:@selector(deleteZone)];
-    }
+    // 设置右侧导航栏为setting
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"setting" hightlightedImageName:@"setting" addTarget:self action:@selector(settingRooms)];
+    
+    [self.view addSubview:self.setAreaView];
+    self.setAreaView.hidden = YES;
+    
+    
+    //  设置中间的标题
+    self.zoneTitleView.name = self.zone.zoneName;
+    
+    self.navigationItem.titleView = self.zoneTitleView;
+    
+    self.navigationItem.titleView.backgroundColor = self.navigationController.navigationBar.backgroundColor;
 }
 
-/// 设置toolBar
-- (void)setToolBar {
+/// 设置区域信息
+- (void)settingRooms {
     
-    // 1.工具格
-    UIToolbar *toolBar = [[UIToolbar alloc] init];
-    toolBar.barTintColor = [UIColor colorWithWhite:97/255.0 alpha:1.0];
-    
-    [self.view addSubview:toolBar];
-    self.toolBar = toolBar;
-    
-    // 添加item
-    
-    // 1.创建弹簧
-    UIBarButtonItem *flexibleSpaceitem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    
-    // 2.G4
-    UIButton *G4Button = [UIButton buttonWithImageName:@"G4" hightlightedImageName:@"G4_highlighted" addTarget:self action:@selector(G4ItemClick:)];
-    G4Button.frame_width *= 0.6;
-    G4Button.frame_height = G4Button.frame_width;
-    
-    [G4Button setImage:[UIImage imageNamed:@"G4_highlighted"] forState:UIControlStateSelected];
-    
-    UIBarButtonItem *G4Item = [[UIBarButtonItem alloc] initWithCustomView:G4Button];
-    
-    // 中间增加一个空格
-    UIBarButtonItem *middleItem = [UIBarButtonItem barButtonItemWithImageName:nil hightlightedImageName:nil addTarget:nil action:nil];
-    
-    // 3.相册
-    UIBarButtonItem *photoItem = [UIBarButtonItem barButtonItemWithImageName:@"photo" hightlightedImageName:nil addTarget:self action:@selector(photoItemClick)];
-    
-    self.toolBar.items = @[flexibleSpaceitem, photoItem, middleItem, G4Item];
+    self.setAreaView.hidden = !self.setAreaView.hidden;
 }
 
 // MARK: - 区域场景的选择
-
-/// 选择照片
-- (void)photoItemClick {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    // 添加三个操作
-    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"From Photos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            return ;
-        }
-        
-        // 打开相册
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        picker.delegate = self;
-        
-        [self presentViewController:picker animated:YES completion:nil];
-        
-        picker = nil;
-    }];
-    
-    // 添加三个操作
-    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            return ;
-        }
-        
-        // 打开相机
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        
-        picker.delegate = self;
-        
-        [self presentViewController:picker animated:YES completion:nil];
-        
-        picker = nil;
-    }];
-    
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"Cancle" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertController addAction:photoAction];
-    [alertController addAction:cameraAction];
-    [alertController addAction:cancleAction];
-    
-    alertController.popoverPresentationController.sourceView = self.toolBar;
-    ;
-    alertController.popoverPresentationController.sourceRect = self.toolBar.bounds;
-    alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-/// 照片选择的代理
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
-    // 获得图片,对图片进行处理，不能直接使用。（因为它会自动旋转）
-    UIImage *sourceImage = [UIImage fixOrientation:[UIImage darwNewImage:info[UIImagePickerControllerOriginalImage] width:[UIView frame_ScreenWidth]]];
-
-    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-        
-        // 写到胶卷中
-        UIImageWriteToSavedPhotosAlbum(sourceImage, self, nil, nil);
-    }
-    
-    // 关闭图片的选择界面
-    [picker dismissViewControllerAnimated:YES completion:nil];
-//    picker =  nil;
-
-    // 准备图征保存在沙盒中
-    [SHUtility writeImageToDocment:self.zone.zoneID data: sourceImage];
-    
-    // 修改比例为最初比例
-    self.zone.imageScale = 1.0;
-    [self.showZoneView setImageForZone:sourceImage scale:self.zone.imageScale];
-    
-    // 保存当前区域
-    [[SHSQLiteManager shareSHSQLiteManager] inserNewZone:self.zone];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
-
-// MARK: - 区域的信息保存与删除
-
-/// G4点击
-- (void)G4ItemClick:(UIButton *)sender {
-    
-    sender.selected = !sender.selected;
-    
-    self.selectDeviceButtonScrollView.hidden = !sender.selected;
-    
-    // 控制手势来控制
-    self.showZoneView.scrollView.pinchGestureRecognizer.enabled = sender.selected;
-    
-    // 选遍历区域中的子控件
-    for (SHButton *button in self.zone.allDeviceButtonInCurrentZone) {
-    
-        // 移除所有的手势
-        for (UIGestureRecognizer *recognizer in button.gestureRecognizers) {
-            [button removeGestureRecognizer:recognizer];
-        }
-        
-        // 选中才可以移动
-        if (sender.selected) {
-            
-            // 添加两个新手势
-            UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(moveToTargetLocation:)];
-            [button addGestureRecognizer:panMove];
-            
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(setArgs:)];
-            longPress.minimumPressDuration = 1.5;
-            longPress.cancelsTouchesInView = YES;
-            [button addGestureRecognizer:longPress];
-            
-            // 没有选中做其他事情
-        } else {
-            
-            // 匹配不同的按钮类型再添加手势
-            switch (button.buttonKind) {
-                    
-                case ButtonKindLight: {
-                    
-                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateLightValue:)];
-                    [panMove setTranslation:CGPointZero inView:button];
-                    [button addGestureRecognizer:panMove];
-                }
-                    
-                    break;
-                    
-                case ButtonKindCurtain: {
-                    
-                }
-                    break;
-                    
-                case  ButtonKindMusic: {
-                    
-                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateAuidoVOL:)];
-                    panMove.delegate = self;
-                    [panMove setTranslation:CGPointZero inView:button];
-                    [button addGestureRecognizer:panMove];
-                    
-                    UISwipeGestureRecognizer *toLeftDetail = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(toLeftAndRightDetail:)];
-                    toLeftDetail.delegate = self;
-                    toLeftDetail.direction=UISwipeGestureRecognizerDirectionLeft;
-                    [button addGestureRecognizer:toLeftDetail];
-                    
-                    UISwipeGestureRecognizer *toRightDetail = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(toLeftAndRightDetail:)];
-                    toRightDetail.delegate = self;
-                    toRightDetail.direction=UISwipeGestureRecognizerDirectionRight;
-                    [button addGestureRecognizer:toRightDetail];
-                    
-                    [panMove requireGestureRecognizerToFail:toLeftDetail];
-                    [panMove requireGestureRecognizerToFail:toRightDetail];
-                }
-                    break;
-                    
-                case ButtonKindAC: {
-                    
-                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateACTempture:)];
-                    [panMove setTranslation:CGPointZero inView:button];
-                    [button addGestureRecognizer:panMove];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-    }
-    
-    // 没有选中
-    if (!sender.selected) {
-        
-        // 获得当前比例
-        self.zone.imageScale = self.showZoneView.scrollView.zoomScale;
-        
-        // 更新当前区域的所有信息
-        [[SHSQLiteManager shareSHSQLiteManager] saveCurrentZonesButtons:self.zone];
-    }
-}
-
-/// 删除区域
-- (void)deleteZone {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Are you sure to delete current zone?" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    // 添加两个操作
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        // 数据库删除这个区域记录
-        [[SHSQLiteManager shareSHSQLiteManager] deleteCurrntZone:self.zone];
-        
-        // 删除图片
-        [SHUtility deleteImageFromDocment:self.zone.zoneID];
-        
-        // 回到预览
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    }];
-    
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        // ...
-    }];
-    
-    [alertController addAction:sureAction];
-    [alertController addAction:cancleAction];
-    
-    
-    alertController.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    alertController.popoverPresentationController.sourceRect = self.view.bounds;
-    alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-  
-    [self presentViewController:alertController animated:YES completion:nil];
-}
 
 #pragma mark - 手势所有的操作
 
@@ -509,39 +423,39 @@ const CGFloat SHDeviceButtonPadding = 5;
     
     // 设置属性
     newButton.subNetID = 1; // 默认是1
-    newButton.buttonKind = button.buttonKind;
+    newButton.deviceType = button.deviceType;
     newButton.zoneID = self.zone.zoneID;
     newButton.buttonID = [[SHSQLiteManager shareSHSQLiteManager] getMaxButtonID] + 1;
-    newButton.buttonKind = button.buttonKind;
+    newButton.deviceType = button.deviceType;
     
     // 设置图片
-    switch (button.buttonKind) {
-        case  ButtonKindLight:
+    switch (button.deviceType) {
+        case  SHDeviceButtonTypeLight:
             
             [newButton buttonWithTitle:@"Light" imageName:@"Light" target:self action:@selector(lightPressed:)];
             break;
             
-        case ButtonKindAC:
+        case SHDeviceButtonTypeAirConditioning:
             
             [newButton buttonWithTitle:@"OFF" imageName:@"AC" target:self action:@selector(acOnAndOff:)];
             break;
             
-        case  ButtonKindMusic:
+        case  SHDeviceButtonTypeAudio:
             
             [newButton buttonWithTitle:@"END" imageName:@"Audio" target:self action:@selector(musicPlayAndStop:)];
             break;
             
-        case ButtonKindCurtain:
+        case SHDeviceButtonTypeCurtain:
             
             [newButton buttonWithTitle:@"Close" imageName:@"Curtain" target:self action:@selector(curtainPressed:)];
             break;
             
-        case ButtonKindMediaTV:
+        case SHDeviceButtonTypeMediaTV:
             
             [newButton buttonWithTitle:@"OFF" imageName:@"TV" target:self action:@selector(watchTvPressed:)];
             break;
             
-        case ButtonKindLed:
+        case SHDeviceButtonTypeLed:
             [newButton buttonWithTitle:@"LED" imageName:@"LED" target:self action:@selector(setLedColor:)];
             break;
             
@@ -642,6 +556,25 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 // MARK: - getter && setter
 
+/// 标题列表
+- (SHZoneDetailViewTitleView *)zoneTitleView {
+    
+    if (!_zoneTitleView) {
+        _zoneTitleView = [SHZoneDetailViewTitleView zoneTitleView];
+    }
+    return _zoneTitleView;
+}
+
+// 设置区域列表
+- (SHSetAreaView *)setAreaView {
+        
+        if (!_setAreaView) {
+            _setAreaView = [SHSetAreaView setAreaView];
+            _setAreaView.delegate = self;
+        }
+        return _setAreaView;
+    }
+
 /// 选择设备列表框
 - (UIScrollView *)selectDeviceButtonScrollView {
     
@@ -670,27 +603,27 @@ const CGFloat SHDeviceButtonPadding = 5;
             // 匹配按钮类型
             switch (i) {
                 case 0:
-                    button.buttonKind = ButtonKindLight;
+                    button.deviceType = SHDeviceButtonTypeLight;
                     break;
                     
                 case 1:
-                    button.buttonKind = ButtonKindAC;
+                    button.deviceType = SHDeviceButtonTypeAirConditioning;
                     break;
                     
                 case 2:
-                    button.buttonKind =  ButtonKindMusic;
+                    button.deviceType =  SHDeviceButtonTypeAudio;
                     break;
                     
                 case 3:
-                    button.buttonKind = ButtonKindCurtain;
+                    button.deviceType = SHDeviceButtonTypeCurtain;
                     break;
                     
                 case 4:
-                    button.buttonKind = ButtonKindMediaTV;
+                    button.deviceType = SHDeviceButtonTypeMediaTV;
                     break;
                     
                 case 5:
-                    button.buttonKind = ButtonKindLed;
+                    button.deviceType = SHDeviceButtonTypeLed;
                     break;
                     
                 default:
@@ -718,12 +651,11 @@ const CGFloat SHDeviceButtonPadding = 5;
 /// 依据屏幕方向来匹配不同的位置
 - (void)viewDidLayoutSubviews {
     
+     self.setAreaView.frame = CGRectMake(self.view.frame_width - [SHSetAreaView areaViewSize].width, SHNavigationBarHeight, [SHSetAreaView areaViewSize].width, [SHSetAreaView areaViewSize].height);
+    
     // 0.中间场景区域的图形
     self.showZoneView.frame = CGRectMake(0, SHNavigationBarHeight, self.view.frame_width, self.view.frame_height - SHNavigationBarHeight - SHTabBarHeight);
-    
-    // 1.工具条的位置
-    self.toolBar.frame = CGRectMake(0, self.view.frame_height- SHTabBarHeight, self.view.frame_width, SHTabBarHeight);
-    
+        
     // 2.选择设备列表
     CGFloat scrollViewWidth = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ?
         SHButtonWidthForPhone : SHButtonWidthForPad;

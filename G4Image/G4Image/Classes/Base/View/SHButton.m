@@ -15,23 +15,23 @@
 /// 获得按钮种类的名称
 + (NSString *)titleKindForButton:(SHButton *)button {
     
-    switch (button.buttonKind) {
-        case ButtonKindMediaTV:
+    switch (button.deviceType) {
+        case SHDeviceButtonTypeMediaTV:
             return @"TV";
             
-        case ButtonKindCurtain:
+        case SHDeviceButtonTypeCurtain:
             return @"Curtain";
             
-        case ButtonKindLight:
+        case SHDeviceButtonTypeLight:
             return @"Light";
             
-        case ButtonKindAC:
+        case SHDeviceButtonTypeAirConditioning:
             return @"Air Conditioner";
             
-        case ButtonKindLed:
+        case SHDeviceButtonTypeLed:
             return @"LED";
             
-        case ButtonKindMusic:
+        case SHDeviceButtonTypeAudio:
             return @"Audio";
             
         default:
@@ -68,7 +68,7 @@
     btn.zoneID = [[dictionary objectForKey:@"zoneID"] integerValue];
     btn.buttonID = [[dictionary objectForKey:@"buttonID"] integerValue];
     
-    btn.buttonKind = (ButtonKind)[dictionary[@"buttonKind"] integerValue];
+    btn.deviceType = (SHDeviceButtonType)[dictionary[@"deviceType"] integerValue];
     
     btn.buttonRectSaved = CGRectFromString(dictionary[@"buttonRectSaved"]);
     

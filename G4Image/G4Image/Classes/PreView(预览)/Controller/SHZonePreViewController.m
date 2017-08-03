@@ -46,7 +46,14 @@
 /// 设置导航栏
 - (void)setNavigationBar {
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addNewZone:)];
+    // 设置标题
+    self.navigationItem.title = @"All Zones";
+
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addNewZone:)];
+    
+    // 设置添加
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"add" hightlightedImageName:@"add" addTarget:self action:@selector(addNewZone:)];
 }
 
 /// 导航栏点击

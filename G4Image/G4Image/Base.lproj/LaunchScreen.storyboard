@@ -1,27 +1,83 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="und-5m-Pol">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="NwI-94-sBH">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="und-5m-Pol" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="oat-Af-K12"/>
+                        <viewControllerLayoutGuide type="bottom" id="rMB-xk-RC4"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="scd-Mx-goo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="BjZ-RX-rPv">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gezi.png" translatesAutoresizingMaskIntoConstraints="NO" id="X0L-Rd-cZ2">
+                                <rect key="frame" x="27" y="259" width="320" height="170"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="170" id="Het-aK-N3w"/>
+                                    <constraint firstAttribute="width" constant="320" id="iq0-aM-0UQ"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zitiwen.png" translatesAutoresizingMaskIntoConstraints="NO" id="4VS-xK-f1c">
+                                <rect key="frame" x="0.0" y="40" width="320" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="112" id="8xH-75-3zZ"/>
+                                    <constraint firstAttribute="width" constant="320" id="ivw-Hq-pXi"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line06.png" translatesAutoresizingMaskIntoConstraints="NO" id="i78-CQ-Ba4">
+                                <rect key="frame" x="0.0" y="152" width="320" height="38"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wenzi.png" translatesAutoresizingMaskIntoConstraints="NO" id="dGz-NK-uX6">
+                                <rect key="frame" x="0.0" y="152" width="320" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="jET-1B-xKv"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="4VS-xK-f1c" firstAttribute="leading" secondItem="scd-Mx-goo" secondAttribute="leading" id="8Gs-NJ-9U7"/>
+                            <constraint firstItem="X0L-Rd-cZ2" firstAttribute="centerX" secondItem="BjZ-RX-rPv" secondAttribute="centerX" id="OQm-EV-3Ld"/>
+                            <constraint firstItem="i78-CQ-Ba4" firstAttribute="bottom" secondItem="dGz-NK-uX6" secondAttribute="bottom" id="Te9-iY-Idq"/>
+                            <constraint firstItem="4VS-xK-f1c" firstAttribute="top" secondItem="oat-Af-K12" secondAttribute="bottom" constant="20" id="UgL-mo-I3s"/>
+                            <constraint firstItem="i78-CQ-Ba4" firstAttribute="height" secondItem="dGz-NK-uX6" secondAttribute="height" id="Vl5-iZ-msA"/>
+                            <constraint firstItem="BjZ-RX-rPv" firstAttribute="leading" secondItem="scd-Mx-goo" secondAttribute="leading" id="Zce-vo-bic"/>
+                            <constraint firstItem="i78-CQ-Ba4" firstAttribute="width" secondItem="dGz-NK-uX6" secondAttribute="width" id="e3m-65-ayh"/>
+                            <constraint firstItem="X0L-Rd-cZ2" firstAttribute="centerY" secondItem="BjZ-RX-rPv" secondAttribute="centerY" id="fBs-2H-cP1"/>
+                            <constraint firstItem="i78-CQ-Ba4" firstAttribute="leading" secondItem="dGz-NK-uX6" secondAttribute="leading" id="h4L-Pl-5q6"/>
+                            <constraint firstAttribute="trailing" secondItem="BjZ-RX-rPv" secondAttribute="trailing" id="jQu-md-rgK"/>
+                            <constraint firstItem="BjZ-RX-rPv" firstAttribute="top" secondItem="oat-Af-K12" secondAttribute="bottom" id="kms-CB-Wnm"/>
+                            <constraint firstItem="dGz-NK-uX6" firstAttribute="top" secondItem="4VS-xK-f1c" secondAttribute="bottom" id="nEV-By-Wm2"/>
+                            <constraint firstItem="dGz-NK-uX6" firstAttribute="width" secondItem="4VS-xK-f1c" secondAttribute="width" id="qMc-eS-4os"/>
+                            <constraint firstItem="rMB-xk-RC4" firstAttribute="top" secondItem="BjZ-RX-rPv" secondAttribute="bottom" id="rzH-3A-0wZ"/>
+                            <constraint firstItem="dGz-NK-uX6" firstAttribute="leading" secondItem="4VS-xK-f1c" secondAttribute="leading" id="vAD-kH-9qp"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OEe-xb-YFg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchScreen.png" width="640" height="960"/>
+        <image name="gezi.png" width="320" height="170"/>
+        <image name="line06.png" width="320" height="39"/>
+        <image name="wenzi.png" width="320" height="38"/>
+        <image name="zitiwen.png" width="320" height="112"/>
+    </resources>
 </document>

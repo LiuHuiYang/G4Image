@@ -20,7 +20,7 @@
     
     UIButton *button = [UIButton buttonWithImageName:imageName hightlightedImageName:hightlightedImageName addTarget:target action:action];
     
-    button.frame_width = button.frame_width * 0.6;
+    button.frame_width = button.frame_width;
     button.frame_height = button.frame_width;
                
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];

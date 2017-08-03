@@ -18,6 +18,15 @@
 // 全局颜色
 #define SHGlobalBackgroundColor ([UIColor colorWithWhite:131/255.0 alpha:1.0])
 
+/// tabBar字体
+#define SHTabBarFont ([UIFont systemFontOfSize:14])
+
+/// 全局字体的正常颜色
+#define SHTextNormalColor ([UIColor cololrWithHex:0X0e7d6f alpa:1.0])
+
+/// 全局字体的高亮颜色
+#define SHTextHighlightedColor ([UIColor cololrWithHex:0Xd81e06 alpa:1.0])
+
 // 导入相关的头文件
 
 #import "UIColor+set.h"

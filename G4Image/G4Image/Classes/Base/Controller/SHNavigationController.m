@@ -26,10 +26,13 @@
 
 @implementation SHNavigationController
 
-/// 设置字体
+/// 设置统一的背景与字体
 + (void)load {
-
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:20], NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
+    
+    // 设置字体
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:20], NSForegroundColorAttributeName: SHTextHighlightedColor}];
+    
+    [[UINavigationBar appearance] setTintColor:SHTextNormalColor];
 }
 
 //- (void)viewDidLoad {
@@ -54,7 +57,26 @@
 //    return self.childViewControllers.count > 1; // 不是栈顶控制器才有效
 //}
 
-#pragma mark - 手机不横屏
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    if (self.childViewControllers.count) {
+        
+        viewController.hidesBottomBarWhenPushed = YES;
+        
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"home" hightlightedImageName:@"home" addTarget:self action:@selector(popBack)];
+    }
+    
+    [super pushViewController:viewController animated:animated];
+}
+
+/// 出栈
+- (void)popBack {
+    
+    [self popViewControllerAnimated:YES];
+}
+
+// MARK: - 手机不横屏
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     

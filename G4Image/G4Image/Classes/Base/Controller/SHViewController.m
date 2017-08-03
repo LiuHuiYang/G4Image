@@ -18,6 +18,9 @@
     
     [super viewDidLoad];
     
+    // 设置背景颜色
+    self.view.backgroundColor =  SHGlobalBackgroundColor;
+    
     // 程序启动进入对应的界面
     [self viewWillTransitionToSize:self.view.bounds.size withTransitionCoordinator:self.transitionCoordinator];
 }

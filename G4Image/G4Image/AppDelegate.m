@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 
+#import "SHNavigationController.h"
+#import "SHZonePreViewController.h"
+#import "SHSQLiteManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -16,7 +20,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.window.rootViewController = [[SHNavigationController alloc] initWithRootViewController:[[SHZonePreViewController alloc] init]];
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

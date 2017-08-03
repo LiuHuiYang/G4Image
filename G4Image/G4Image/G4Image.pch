@@ -9,7 +9,37 @@
 #ifndef G4Image_pch
 #define G4Image_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+
+
+// 导入相关的宏
+
+// 全局颜色
+#define SHGlobalBackgroundColor ([UIColor colorWithWhite:131/255.0 alpha:1.0])
+
+// 导入相关的头文件
+
+#import "UIColor+set.h"
+#import "UIView+frame.h"
+#import "PrintLog.h"
+#import "MBProgressHUD+MJ.h"
+
+#import "SHUtility.h"
+#import "UIButton+init.h"
+#import "UIBarButtonItem+init.h"
+#import "SHZone.h"
+#import "SHButton.h"
+#import "FileTools.h"
+#import "SHSQLiteManager.h"
+#import "SHUdpSocket.h"
+#import "SHAnalyDeviceData.h"
+#import "SHSendDeviceData.h"
+#import "UIImage+Rotate.h"
+
+#import "SHConstant.h"
+
+#endif
+
 
 #endif /* G4Image_pch */

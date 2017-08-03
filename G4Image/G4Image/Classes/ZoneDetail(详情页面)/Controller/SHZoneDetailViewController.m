@@ -61,7 +61,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     self.zone.imageScale = 1.0;
     
     // 准备图征保存在沙盒中
-    [SHUtility writeImageToDocment:self.zone.zoneID data: image];
+    [UIImage writeImageToDocment:self.zone.zoneID data: image];
     
     // 设置图片
     [self.showZoneView setImageForZone:image scale:self.zone.imageScale];
@@ -187,7 +187,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     [[SHSQLiteManager shareSHSQLiteManager] deleteCurrntZone:self.zone];
     
     // 删除图片
-    [SHUtility deleteImageFromDocment:self.zone.zoneID];
+    [UIImage deleteImageFromDocment:self.zone.zoneID];
     
     // 回到预览
     [self.navigationController popViewControllerAnimated:YES];
@@ -247,7 +247,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     [self.view insertSubview:self.showZoneView belowSubview:self.setAreaView];
     
     // 获得当前区域的图片
-    UIImage *image = [SHUtility getImageForZones:self.zone.zoneID];
+    UIImage *image = [UIImage getImageForZones:self.zone.zoneID];
     if (!image) {
         return;
     }
@@ -588,7 +588,7 @@ const CGFloat SHDeviceButtonPadding = 5;
         NSArray *selectNames = @[@"Light", @"AC",@"Audio", @"Curtain", @"TV", @"LED"];
         self.selectNames = selectNames;
         
-        _deviceListView.contentSize = CGSizeMake(0, selectNames.count * SHTabBarHeight);
+        _deviceListView.contentSize = CGSizeMake(0, selectNames.count * SHNavigationBarHeight);
         
         for (NSUInteger i = 0; i < selectNames.count; i++) {
             
@@ -657,16 +657,13 @@ const CGFloat SHDeviceButtonPadding = 5;
     self.showZoneView.frame = CGRectMake(0, SHNavigationBarHeight, self.view.frame_width, self.view.frame_height - SHNavigationBarHeight - SHTabBarHeight);
         
     // 2.选择设备列表
-    CGFloat scrollViewWidth = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ?
-        SHDeviceButtonWidthForPhone : SHDeviceButtonWidthForPad;
-    
-    self.deviceListView.frame  = CGRectMake(self.view.frame_width - scrollViewWidth, self.view.frame_CenterY, scrollViewWidth, self.view.frame_CenterY * 0.5);
+     self.deviceListView.frame = CGRectMake(self.view.frame_width - self.setAreaView.frame_width, self.setAreaView.frame_height + self.setAreaView.frame_y, self.setAreaView.frame_width, self.setAreaView.frame_height);
     
     for (NSUInteger i = 0; i < self.deviceListView.subviews.count; i++) {
         UIView *subView = self.deviceListView.subviews[i];
         
         if ([subView isKindOfClass:[SHDeviceButton class]]) {
-            subView.frame = CGRectMake(SHDeviceButtonPadding, subView.tag * SHTabBarHeight , self.deviceListView.frame_width, SHTabBarHeight - SHDeviceButtonPadding);
+            subView.frame = CGRectMake(SHDeviceButtonPadding, subView.tag * SHNavigationBarHeight , self.deviceListView.frame_width, SHNavigationBarHeight - SHDeviceButtonPadding);
         }
     }
 }

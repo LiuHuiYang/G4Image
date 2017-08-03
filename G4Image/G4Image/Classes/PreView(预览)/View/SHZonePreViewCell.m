@@ -29,7 +29,7 @@
     
     _modelZone = modelZone;
     
-    self.iconView.image = [SHUtility getImageForZones:modelZone.zoneID];
+    self.iconView.image = [UIImage getImageForZones:modelZone.zoneID];
     
     // 设置圆角
     self.iconView.layer.cornerRadius = 10;

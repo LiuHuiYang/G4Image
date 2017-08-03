@@ -22,9 +22,8 @@ typedef enum  {
 /// 按钮类型
 typedef enum  {
     
-    SHDeviceButtonTypeNone,
-    
     SHDeviceButtonTypeLight,
+    
     SHDeviceButtonTypeLed,
 
     SHDeviceButtonTypeAirConditioning,
@@ -76,5 +75,8 @@ typedef enum  {
 
 /// 获得按钮种类的名称
 + (NSString *)titleKindForButton:(SHDeviceButton *)button;
+
+/// 通过类型来构造设备按钮
++ (instancetype)deviceButtonType:(SHDeviceButtonType )deviceType;
 
 @end

@@ -10,6 +10,19 @@
 
 #define SHDeviceButtonMaign (5)
 
+@interface SHDeviceButton ()
+
+///// 图片
+//@property (weak, nonatomic) IBOutlet UIImageView *iconView;
+//
+///// 描述文字
+//@property (weak, nonatomic) IBOutlet UILabel *descLabel;
+
+/// 图片名称
+@property (strong, nonatomic) NSMutableArray *imageNames;
+
+@end
+
 @implementation SHDeviceButton
 
 /// 获得按钮种类的名称
@@ -39,25 +52,16 @@
     }
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    //    self.titleLabel.backgroundColor = [UIColor redColor];
-    //    self.imageView.backgroundColor = [UIColor greenColor];
-    
-    self.titleLabel.frame_x = 0;
-    self.titleLabel.frame_y = 0;
-    self.titleLabel.frame_width = self.frame_width * 0.6;
-    self.titleLabel.frame_height = self.frame_height;
-    
-    self.imageView.frame_width = self.frame_width - self.titleLabel.frame_width - SHDeviceButtonMaign;
-    self.imageView.frame_x = self.titleLabel.frame_width;
-}
+
+
+
 
 /// 字典转换为模型
 + (instancetype)buttonWithDictionary:(NSDictionary *)dictionary {
     
-    SHDeviceButton *btn = [[self alloc] init];
+//    SHDeviceButton *btn = [[self alloc] init];
+    
+    SHDeviceButton *btn = [self deviceButtonType:(SHDeviceButtonType)[dictionary[@"deviceType"] integerValue]];
     
     // 设置每个属性
     
@@ -68,7 +72,7 @@
     btn.zoneID = [[dictionary objectForKey:@"zoneID"] integerValue];
     btn.buttonID = [[dictionary objectForKey:@"buttonID"] integerValue];
     
-    btn.deviceType = (SHDeviceButtonType)[dictionary[@"deviceType"] integerValue];
+//    btn.deviceType = (SHDeviceButtonType)[dictionary[@"deviceType"] integerValue];
     
     btn.buttonRectSaved = CGRectFromString(dictionary[@"buttonRectSaved"]);
     
@@ -82,22 +86,51 @@
     return btn;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.titleLabel.frame_x = SHDeviceButtonMaign;
+    self.titleLabel.frame_width = self.frame_width * 0.5;
+    self.titleLabel.frame_height = self.titleLabel.frame_width;
+    self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame_width;
+    
+    self.titleLabel.frame_y = (self.frame_height - self.titleLabel.frame_height) * 0.5;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
-        self.titleLabel.textAlignment = NSTextAlignmentRight;
-        
-        CGFloat fontSize = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 12 : 18;
-        
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
-        
-        [self setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     }
     return self;
+}
+
+/// 通过类型来构造设备按钮
++ (instancetype)deviceButtonType:(SHDeviceButtonType )deviceType {
+
+    
+     SHDeviceButton *deviceButton = [[self alloc] init];
+    
+    deviceButton.deviceType = deviceType;
+    
+    [deviceButton setBackgroundImage:[UIImage imageNamed:deviceButton.imageNames[deviceType]] forState:UIControlStateNormal];
+    
+    return deviceButton;
+}
+
+
+// MARK: - getter && sett
+
+- (NSMutableArray *)imageNames {
+ 
+      // 注意： 这和枚举值一一对应
+    if (!_imageNames) {
+        _imageNames = [NSMutableArray arrayWithObjects:@"light", @"led", @"ac", @"audio", @"curtain", @"tv",  nil];
+    }
+    
+    return _imageNames;
 }
 
 @end

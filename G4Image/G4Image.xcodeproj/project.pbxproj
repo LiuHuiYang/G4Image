@@ -89,7 +89,6 @@
 		8B6D0B5F1F335C4000271E91 /* SHZoneDetailViewTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B5D1F335C4000271E91 /* SHZoneDetailViewTitleView.m */; };
 		8B6D0B601F335C4000271E91 /* SHZoneDetailViewTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */; };
 		8B6D0B691F3367E400271E91 /* UIImage+Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B681F3367E400271E91 /* UIImage+Path.m */; };
-		8B6D0B6B1F336A4A00271E91 /* SHDeviceButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B6A1F336A4A00271E91 /* SHDeviceButton.xib */; };
 		AABF0B72819B48ADE9F71AE7 /* libPods-G4Image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7209658D91EDA7A398412AE1 /* libPods-G4Image.a */; };
 /* End PBXBuildFile section */
 
@@ -216,7 +215,6 @@
 		8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHZoneDetailViewTitleView.xib; sourceTree = "<group>"; };
 		8B6D0B671F3367E400271E91 /* UIImage+Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Path.h"; sourceTree = "<group>"; };
 		8B6D0B681F3367E400271E91 /* UIImage+Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Path.m"; sourceTree = "<group>"; };
-		8B6D0B6A1F336A4A00271E91 /* SHDeviceButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHDeviceButton.xib; sourceTree = "<group>"; };
 		A777A54EB86D4547454E0FFE /* Pods-G4Image.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G4Image.release.xcconfig"; path = "Pods/Target Support Files/Pods-G4Image/Pods-G4Image.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -459,7 +457,6 @@
 			children = (
 				8B6D0B061F334F5100271E91 /* SHDeviceButton.h */,
 				8B6D0B071F334F5100271E91 /* SHDeviceButton.m */,
-				8B6D0B6A1F336A4A00271E91 /* SHDeviceButton.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -677,7 +674,6 @@
 				8B3F7F7E1F332D7500685441 /* iPhone6@2x.png in Resources */,
 				8B3F7F7F1F332D7500685441 /* iPhone6@3x.png in Resources */,
 				8B3F7F9B1F332D7500685441 /* zitiwen@3x.png in Resources */,
-				8B6D0B6B1F336A4A00271E91 /* SHDeviceButton.xib in Resources */,
 				8B3F7F951F332D7500685441 /* line06@3x.png in Resources */,
 				8B3F7F8D1F332D7500685441 /* line04.png in Resources */,
 				8B3F7F901F332D7500685441 /* line05.png in Resources */,

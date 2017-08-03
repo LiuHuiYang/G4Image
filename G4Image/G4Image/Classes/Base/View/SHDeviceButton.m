@@ -1,19 +1,19 @@
 //
-//  SHButton.m
+//  SHDeviceButton.m
 //  TouchTest
 //
 //  Created by Firas on 12/11/13.
 //  Copyright (c) 2013 SH. All rights reserved.
 //
 
-#import "SHButton.h"
+#import "SHDeviceButton.h"
 
-#define SHButtonMaign (5)
+#define SHDeviceButtonMaign (5)
 
-@implementation SHButton
+@implementation SHDeviceButton
 
 /// 获得按钮种类的名称
-+ (NSString *)titleKindForButton:(SHButton *)button {
++ (NSString *)titleKindForButton:(SHDeviceButton *)button {
     
     switch (button.deviceType) {
         case SHDeviceButtonTypeMediaTV:
@@ -50,14 +50,14 @@
     self.titleLabel.frame_width = self.frame_width * 0.6;
     self.titleLabel.frame_height = self.frame_height;
     
-    self.imageView.frame_width = self.frame_width - self.titleLabel.frame_width - SHButtonMaign;
+    self.imageView.frame_width = self.frame_width - self.titleLabel.frame_width - SHDeviceButtonMaign;
     self.imageView.frame_x = self.titleLabel.frame_width;
 }
 
 /// 字典转换为模型
 + (instancetype)buttonWithDictionary:(NSDictionary *)dictionary {
     
-    SHButton *btn = [[self alloc] init];
+    SHDeviceButton *btn = [[self alloc] init];
     
     // 设置每个属性
     

@@ -1,5 +1,5 @@
 //
-//  SHButton.h
+//  SHDeviceButton.h
 //  TouchTest
 //
 //  Created by Firas on 4/4/17.
@@ -36,7 +36,7 @@ typedef enum  {
 } SHDeviceButtonType ;
 
 
-@interface SHButton : UIButton
+@interface SHDeviceButton : UIButton
 
 /// 按钮区域ID
 @property (assign,nonatomic)NSUInteger zoneID;
@@ -75,6 +75,6 @@ typedef enum  {
 + (instancetype)buttonWithDictionary:(NSDictionary *)dictionary;
 
 /// 获得按钮种类的名称
-+ (NSString *)titleKindForButton:(SHButton *)button;
++ (NSString *)titleKindForButton:(SHDeviceButton *)button;
 
 @end

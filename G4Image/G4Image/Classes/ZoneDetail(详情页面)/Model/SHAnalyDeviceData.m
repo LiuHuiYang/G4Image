@@ -54,7 +54,7 @@
     }
     
     // 找到区域的按钮
-    for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
         if (button.subNetID == subNetID && button.deviceID == deviceID) {
             
             // 设置改变的状态
@@ -85,7 +85,7 @@
             Byte brightness = recivedData[11];
             
             // 找到当前区域的按钮
-            for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+            for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
                 
                 // 这是灯光
                 if (button.subNetID == subNetID && button.deviceID == deviceID && channelNumber == button.buttonPara1 && button.deviceType == SHDeviceButtonTypeLight) {
@@ -122,7 +122,7 @@
             for (Byte i = 0; i < totalChannels; i++) {
                 
                 // 找到当前区域的按钮
-                for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+                for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
                     
                     // 这是Light
                     if (button.subNetID == subNetID && button.deviceID == deviceID && (i + 1) == button.buttonPara1 && button.deviceType == SHDeviceButtonTypeLight) {
@@ -175,7 +175,7 @@
         }
         
         // 设置按钮
-        for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+        for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
             if (button.deviceType == SHDeviceButtonTypeAudio && button.subNetID == subNetID && button.deviceID == deviceID) {
                 [button setTitle:playStatus forState:UIControlStateNormal];
             }
@@ -186,7 +186,7 @@
         
         if (recivedData[10] == 0X01 && recivedData[11] == 0X03) {
             // 设置音量
-            for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+            for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
                 if (button.deviceType == SHDeviceButtonTypeAudio && button.subNetID == subNetID && button.deviceID == deviceID) {
                     [button setTitle:[NSString stringWithFormat:@"%d", 80 - recivedData[12]] forState:UIControlStateNormal];
                 }
@@ -210,7 +210,7 @@
     NSString *title = statues ? @"ON" : @"OFF";
     
     // 找到这个按钮
-    for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
         if (button.deviceType == SHDeviceButtonTypeMediaTV && button.subNetID == subNetID && button.deviceID == deviceID) {
             [button setTitle:title forState:UIControlStateNormal];
         }
@@ -246,7 +246,7 @@
     UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     
     // 找到button
-    for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
         if (button.deviceType == SHDeviceButtonTypeLed && button.subNetID == subNetID && button.deviceID == deviceID) {
 
             // 设置显示图征的控件渲染模式为白色

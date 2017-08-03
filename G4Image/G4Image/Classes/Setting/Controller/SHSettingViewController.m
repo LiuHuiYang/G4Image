@@ -91,7 +91,7 @@
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     // 设置当前设置的标题
-    self.title = [SHButton titleKindForButton:self.settingButton];
+    self.title = [SHDeviceButton titleKindForButton:self.settingButton];
     
     // 设置初值
     self.subNetTextField.text = [NSString stringWithFormat:@"%d", self.settingButton.subNetID];

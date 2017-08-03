@@ -12,10 +12,10 @@
 const CGFloat SHStatusHeight = 20;
 
 /// 按钮宽度(iPhone)
-const CGFloat SHButtonWidthForPhone = 75;
+const CGFloat SHDeviceButtonWidthForPhone = 75;
 
 /// 按钮宽度(iPad)
-const CGFloat SHButtonWidthForPad = 110;
+const CGFloat SHDeviceButtonWidthForPad = 110;
 
 /// 导航栏的高度
 const CGFloat SHNavigationBarHeight = 64;

@@ -14,10 +14,10 @@
 #pragma mark - 设备按钮列表
 
 /// 删除已经存在按钮
-- (void)deleteButton:(SHButton *)button;
+- (void)deleteButton:(SHDeviceButton *)button;
 
 /// 将新创建的按钮保存在数据库中
-- (void)inserNewButton:(SHButton *)button;
+- (void)inserNewButton:(SHDeviceButton *)button;
 
 /// 获得最大的按钮ID
 - (NSUInteger)getMaxButtonID;

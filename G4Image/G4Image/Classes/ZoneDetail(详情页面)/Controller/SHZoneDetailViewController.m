@@ -26,7 +26,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 
 /// 选择不同的设备列表
-@property (strong, nonatomic) UIScrollView *selectDeviceButtonScrollView;
+@property (strong, nonatomic) UIScrollView *deviceListView;
 
 /// 设备列表名称
 @property (strong, nonatomic) NSArray *selectNames;
@@ -74,13 +74,13 @@ const CGFloat SHDeviceButtonPadding = 5;
 /// 显示设备列表的代理回调
 - (void)setAreaViewShowDeviceList:(UIButton *)deviceButton {
     
-    self.selectDeviceButtonScrollView.hidden = !deviceButton.selected;
+    self.deviceListView.hidden = !deviceButton.selected;
     
     // 控制手势来控制
     self.showZoneView.scrollView.pinchGestureRecognizer.enabled = deviceButton.selected;
     
     // 选遍历区域中的子控件
-    for (SHButton *button in self.zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in self.zone.allDeviceButtonInCurrentZone) {
         
         // 移除所有的手势
         for (UIGestureRecognizer *recognizer in button.gestureRecognizers) {
@@ -210,7 +210,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     self.showZoneView.scrollView.pinchGestureRecognizer.enabled = NO;
     
     // 给当前所有的设备按钮来读取状态
-    for (SHButton *button in self.zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in self.zone.allDeviceButtonInCurrentZone) {
         
         [SHSendDeviceData readDeviceStatus:button];
     }
@@ -233,8 +233,8 @@ const CGFloat SHDeviceButtonPadding = 5;
     [self showZones];
     
     // 4.设置右边的按钮选择列表
-    [self.view addSubview:self.selectDeviceButtonScrollView];
-    self.selectDeviceButtonScrollView.hidden = YES;
+    [self.view addSubview:self.deviceListView];
+    self.deviceListView.hidden = YES;
     
     // 初始化socket设置代理
     [SHUdpSocket shareSHUdpSocket].delegate = self;
@@ -258,14 +258,14 @@ const CGFloat SHDeviceButtonPadding = 5;
     // 获得当前区域的所有按钮
     self.zone.allDeviceButtonInCurrentZone = [[SHSQLiteManager shareSHSQLiteManager] getAllButtonsForCurrentZone:self.zone];
     
-    for (SHButton *button in self.zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in self.zone.allDeviceButtonInCurrentZone) {
         
         [self addButtonModel:button];
     }
 }
 
 /// 添加保存的所有按钮到显示器上
-- (void)addButtonModel:(SHButton *)button {
+- (void)addButtonModel:(SHDeviceButton *)button {
     
     // 匹配不同的按钮有不同的交互
     switch (button.deviceType) {
@@ -405,10 +405,10 @@ const CGFloat SHDeviceButtonPadding = 5;
 }
 
 ///  双击
-- (void)selectDeviceTouched:(SHButton *)button {
+- (void)selectDeviceTouched:(SHDeviceButton *)button {
     
     // 创建一个新的按钮
-    SHButton *newButton = [[SHButton alloc] init];
+    SHDeviceButton *newButton = [[SHDeviceButton alloc] init];
     
     newButton.bounds = button.bounds;
     newButton.frame_x = self.showZoneView.frame_CenterX;
@@ -490,7 +490,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     SHSettingViewController *settingViewController = [[UIStoryboard storyboardWithName:NSStringFromClass([SHSettingViewController class]) bundle:nil] instantiateInitialViewController];
     
     // 设置长按的按钮
-    settingViewController.settingButton = (SHButton *)recognizer.view;
+    settingViewController.settingButton = (SHDeviceButton *)recognizer.view;
     settingViewController.sourceViewController = self;
     
     [self.navigationController pushViewController:settingViewController animated:YES];
@@ -500,7 +500,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 - (void)moveToTargetLocation:(UIPanGestureRecognizer *)recognizer {
     
     // 获得按钮
-    SHButton *button = (SHButton *)recognizer.view;
+    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
     // 移动的距离 -> 转换成在相关的控件中的位置
     CGPoint point = [recognizer translationInView:self.showZoneView];
@@ -519,36 +519,36 @@ const CGFloat SHDeviceButtonPadding = 5;
 // MARK: - 设备的开和关
 
 /// 播放电视
-- (void)watchTvPressed:(SHButton *)button {
+- (void)watchTvPressed:(SHDeviceButton *)button {
     
     [SHSendDeviceData watchTv:button];
 }
 
 /// 窗帘移动
-- (void)curtainPressed:(SHButton *)button {
+- (void)curtainPressed:(SHDeviceButton *)button {
 
     [SHSendDeviceData curtainOpenOrClose:button];
 }
 
 /// 音乐播放
-- (void)musicPlayAndStop:(SHButton *)button {
+- (void)musicPlayAndStop:(SHDeviceButton *)button {
     
     [SHSendDeviceData musicPlayAndStop:button];
 }
 
 /// AC 空调开关
-- (void)acOnAndOff:(SHButton *)button {
+- (void)acOnAndOff:(SHDeviceButton *)button {
     [SHSendDeviceData acOnAndOff:button];
 }
 
 /// 开关点击
-- (void)lightPressed:(SHButton *)button {
+- (void)lightPressed:(SHDeviceButton *)button {
     
     [SHSendDeviceData setDimmer:button];
 }
 
 /// 设置LED的颜色
-- (void)setLedColor:(SHButton *)button {
+- (void)setLedColor:(SHDeviceButton *)button {
     
     SHSelectColorViewController *selectController = [[SHSelectColorViewController alloc] init];
     [selectController show:button];
@@ -576,23 +576,23 @@ const CGFloat SHDeviceButtonPadding = 5;
     }
 
 /// 选择设备列表框
-- (UIScrollView *)selectDeviceButtonScrollView {
+- (UIScrollView *)deviceListView {
     
-    if (!_selectDeviceButtonScrollView) {
+    if (!_deviceListView) {
         
-        _selectDeviceButtonScrollView = [[UIScrollView alloc] init];
-        _selectDeviceButtonScrollView.showsVerticalScrollIndicator = YES;
-        _selectDeviceButtonScrollView.pagingEnabled = YES;
+        _deviceListView = [[UIScrollView alloc] init];
+        _deviceListView.showsVerticalScrollIndicator = YES;
+        _deviceListView.pagingEnabled = YES;
         
         // 添加按钮
         NSArray *selectNames = @[@"Light", @"AC",@"Audio", @"Curtain", @"TV", @"LED"];
         self.selectNames = selectNames;
         
-        _selectDeviceButtonScrollView.contentSize = CGSizeMake(0, selectNames.count * SHTabBarHeight);
+        _deviceListView.contentSize = CGSizeMake(0, selectNames.count * SHTabBarHeight);
         
         for (NSUInteger i = 0; i < selectNames.count; i++) {
             
-            SHButton *button = [SHButton buttonWithType:UIButtonTypeCustom];
+            SHDeviceButton *button = [SHDeviceButton buttonWithType:UIButtonTypeCustom];
             
             button.tag = i;
             
@@ -633,10 +633,10 @@ const CGFloat SHDeviceButtonPadding = 5;
             // 点击显示出来
             [button addTarget:self action:@selector(selectDeviceTouched:) forControlEvents:UIControlEventTouchUpInside];
             
-            [_selectDeviceButtonScrollView addSubview:button];
+            [_deviceListView addSubview:button];
         }
     }
-    return _selectDeviceButtonScrollView;
+    return _deviceListView;
 }
 
 /// 场景视图
@@ -658,15 +658,15 @@ const CGFloat SHDeviceButtonPadding = 5;
         
     // 2.选择设备列表
     CGFloat scrollViewWidth = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ?
-        SHButtonWidthForPhone : SHButtonWidthForPad;
+        SHDeviceButtonWidthForPhone : SHDeviceButtonWidthForPad;
     
-    self.selectDeviceButtonScrollView.frame  = CGRectMake(self.view.frame_width - scrollViewWidth, self.view.frame_CenterY, scrollViewWidth, self.view.frame_CenterY * 0.5);
+    self.deviceListView.frame  = CGRectMake(self.view.frame_width - scrollViewWidth, self.view.frame_CenterY, scrollViewWidth, self.view.frame_CenterY * 0.5);
     
-    for (NSUInteger i = 0; i < self.selectDeviceButtonScrollView.subviews.count; i++) {
-        UIView *subView = self.selectDeviceButtonScrollView.subviews[i];
+    for (NSUInteger i = 0; i < self.deviceListView.subviews.count; i++) {
+        UIView *subView = self.deviceListView.subviews[i];
         
-        if ([subView isKindOfClass:[SHButton class]]) {
-            subView.frame = CGRectMake(SHDeviceButtonPadding, subView.tag * SHTabBarHeight , self.selectDeviceButtonScrollView.frame_width, SHTabBarHeight - SHDeviceButtonPadding);
+        if ([subView isKindOfClass:[SHDeviceButton class]]) {
+            subView.frame = CGRectMake(SHDeviceButtonPadding, subView.tag * SHTabBarHeight , self.deviceListView.frame_width, SHTabBarHeight - SHDeviceButtonPadding);
         }
     }
 }

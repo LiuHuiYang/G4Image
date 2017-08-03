@@ -15,10 +15,10 @@
 extern const CGFloat SHStatusHeight;
 
 /// 按钮宽度(iPhone)
-extern const CGFloat SHButtonWidthForPhone ;
+extern const CGFloat SHDeviceButtonWidthForPhone ;
 
 /// 按钮宽度(iPad)
-extern const CGFloat SHButtonWidthForPad;
+extern const CGFloat SHDeviceButtonWidthForPad;
 
 /// 导航栏的高度
 extern const CGFloat SHNavigationBarHeight ;

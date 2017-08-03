@@ -71,7 +71,7 @@
 		8B6D0B0A1F334F5100271E91 /* SHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0AF81F334F5100271E91 /* SHNavigationController.m */; };
 		8B6D0B0B1F334F5100271E91 /* SHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0AFA1F334F5100271E91 /* SHViewController.m */; };
 		8B6D0B0F1F334F5100271E91 /* SHConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B041F334F5100271E91 /* SHConstant.m */; };
-		8B6D0B101F334F5100271E91 /* SHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B071F334F5100271E91 /* SHButton.m */; };
+		8B6D0B101F334F5100271E91 /* SHDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B071F334F5100271E91 /* SHDeviceButton.m */; };
 		8B6D0B111F334F5100271E91 /* SHUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B091F334F5100271E91 /* SHUtility.m */; };
 		8B6D0B261F334F8800271E91 /* SHSelectColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B161F334F8800271E91 /* SHSelectColorViewController.m */; };
 		8B6D0B271F334F8800271E91 /* SHZoneDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B181F334F8800271E91 /* SHZoneDetailViewController.m */; };
@@ -183,8 +183,8 @@
 		8B6D0AFA1F334F5100271E91 /* SHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHViewController.m; sourceTree = "<group>"; };
 		8B6D0B031F334F5100271E91 /* SHConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHConstant.h; sourceTree = "<group>"; };
 		8B6D0B041F334F5100271E91 /* SHConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHConstant.m; sourceTree = "<group>"; };
-		8B6D0B061F334F5100271E91 /* SHButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHButton.h; sourceTree = "<group>"; };
-		8B6D0B071F334F5100271E91 /* SHButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHButton.m; sourceTree = "<group>"; };
+		8B6D0B061F334F5100271E91 /* SHDeviceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDeviceButton.h; sourceTree = "<group>"; };
+		8B6D0B071F334F5100271E91 /* SHDeviceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDeviceButton.m; sourceTree = "<group>"; };
 		8B6D0B081F334F5100271E91 /* SHUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHUtility.h; sourceTree = "<group>"; };
 		8B6D0B091F334F5100271E91 /* SHUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHUtility.m; sourceTree = "<group>"; };
 		8B6D0B151F334F8800271E91 /* SHSelectColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSelectColorViewController.h; sourceTree = "<group>"; };
@@ -453,8 +453,8 @@
 		8B6D0B051F334F5100271E91 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8B6D0B061F334F5100271E91 /* SHButton.h */,
-				8B6D0B071F334F5100271E91 /* SHButton.m */,
+				8B6D0B061F334F5100271E91 /* SHDeviceButton.h */,
+				8B6D0B071F334F5100271E91 /* SHDeviceButton.m */,
 				8B6D0B081F334F5100271E91 /* SHUtility.h */,
 				8B6D0B091F334F5100271E91 /* SHUtility.m */,
 			);
@@ -787,7 +787,7 @@
 				8B3F7F331F332C7E00685441 /* AppDelegate.m in Sources */,
 				8B6D0B2B1F334F8800271E91 /* UIImageView+ColorAtPoint.m in Sources */,
 				8B6D0B111F334F5100271E91 /* SHUtility.m in Sources */,
-				8B6D0B101F334F5100271E91 /* SHButton.m in Sources */,
+				8B6D0B101F334F5100271E91 /* SHDeviceButton.m in Sources */,
 				8B3F7F301F332C7E00685441 /* main.m in Sources */,
 				8B6D0B591F33559B00271E91 /* SHSetAreaView.m in Sources */,
 				8B6D0AF41F334F1800271E91 /* SHZone.m in Sources */,

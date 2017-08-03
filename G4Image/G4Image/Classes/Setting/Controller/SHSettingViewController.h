@@ -13,7 +13,7 @@
 
 
 /// 设置按钮
-@property (strong,nonatomic)SHButton *settingButton;
+@property (strong,nonatomic)SHDeviceButton *settingButton;
 
 /// 来源控制器
 @property (nonatomic, strong) SHZoneDetailViewController *sourceViewController;

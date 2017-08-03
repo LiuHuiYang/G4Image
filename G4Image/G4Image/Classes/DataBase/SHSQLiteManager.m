@@ -29,7 +29,7 @@
 #pragma mark - 实际的操作
 
 /// 删除已经存在按钮
-- (void)deleteButton:(SHButton *)button {
+- (void)deleteButton:(SHDeviceButton *)button {
     
     // 准备SQL
     NSString *sql = sql = [NSString stringWithFormat:@"DELETE FROM DeviceButtonForZone WHERE zoneID = %zd and buttonID = %zd",button.zoneID,button.buttonID];
@@ -39,7 +39,7 @@
 }
 
 /// 将新创建的按钮保存在数据库中
-- (void)inserNewButton:(SHButton *)button {
+- (void)inserNewButton:(SHDeviceButton *)button {
  
     NSString * sql = [NSString stringWithFormat:@"INSERT INTO DeviceButtonForZone (zoneID, buttonID, subnetID, deviceID, deviceType, buttonRectSaved, buttonPara1, buttonPara2, buttonPara3, buttonPara4, buttonPara5, buttonPara6) VALUES (%zd, %zd, %d, %d, %d, '%@', %d, %d, %d, %d, %d, %d);",  button.zoneID, button.buttonID, button.subNetID, button.deviceID, button.deviceType, NSStringFromCGRect(button.frame), button.buttonPara1, button.buttonPara2, button.buttonPara3, button.buttonPara4, button.buttonPara5, button.buttonPara6];
     
@@ -64,7 +64,7 @@
     NSMutableArray *allButtons = [NSMutableArray arrayWithCapacity:resArr.count];
     
     for (NSDictionary *dict in resArr) {
-        SHButton *button = [SHButton buttonWithDictionary:dict];
+        SHDeviceButton *button = [SHDeviceButton buttonWithDictionary:dict];
         [allButtons addObject:button];
     }
  
@@ -138,7 +138,7 @@
     [self updateZone:zone];
     
     // 更新所有的按钮
-    for (SHButton *button in zone.allDeviceButtonInCurrentZone) {
+    for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
         
         // 由于按钮已经保存过，此时就更新一下就可以了
         NSString * sql = [NSString stringWithFormat:@"UPDATE DeviceButtonForZone SET subnetID = %d, deviceID = %d, buttonRectSaved = '%@', buttonPara1 = %d, buttonPara2 = %d, buttonPara3 = %d, buttonPara4 = %d, buttonPara5 = %d, buttonPara6 = %d WHERE zoneID = %lu AND buttonID = %lu ;", button.subNetID, button.deviceID, NSStringFromCGRect(button.frame), button.buttonPara1, button.buttonPara2, button.buttonPara3, button.buttonPara4, button.buttonPara5, button.buttonPara6,  (unsigned long)button.zoneID, (unsigned long)button.buttonID];

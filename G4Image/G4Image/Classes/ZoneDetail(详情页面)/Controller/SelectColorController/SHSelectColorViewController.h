@@ -12,6 +12,6 @@
 
 
 /// 显示取色计
-- (void)show:(SHButton *)button;
+- (void)show:(SHDeviceButton *)button;
 
 @end

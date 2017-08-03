@@ -32,13 +32,13 @@ const Byte maxVol = 80; // 其它只有80
 // MARK: - Light or Dimmer
 
 /// 读取调光器的当前值
-+ (void)readDimmerStatus:(SHButton *)button {
++ (void)readDimmerStatus:(SHDeviceButton *)button {
     
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0X0033 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:nil needReSend:YES];
 }
 
 /// 设置调光器
-+ (void)setDimmer:(SHButton *)button {
++ (void)setDimmer:(SHDeviceButton *)button {
     
     // 获取按钮当前的值
     NSString *title = [button titleForState:UIControlStateNormal];
@@ -67,7 +67,7 @@ const Byte maxVol = 80; // 其它只有80
     }
     
     // 获得按钮
-    SHButton *button = (SHButton *)recognizer.view;
+    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
     // 获得按钮的文字
     NSString *title = [button titleForState:UIControlStateNormal];
@@ -98,7 +98,7 @@ const Byte maxVol = 80; // 其它只有80
 // MARK: - 空调
 
 /// AC 空调开关
-+ (void)acOnAndOff:(SHButton *)button {
++ (void)acOnAndOff:(SHDeviceButton *)button {
     
     // 获得当前按钮的值并设置改变的状态
     NSString *status = [[button titleForState:UIControlStateNormal] isEqualToString:@"OFF"] ? @"ON" : @"OFF";
@@ -122,7 +122,7 @@ const Byte maxVol = 80; // 其它只有80
     }
 
     // 获得按钮
-    SHButton *button = (SHButton *)recognizer.view;
+    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
     // 获得按钮的文字
     NSString *title = [button titleForState:UIControlStateNormal];
@@ -158,7 +158,7 @@ const Byte maxVol = 80; // 其它只有80
 }
 
 /// 读取当前AC的温度
-+ (void)readTemperatureValue:(SHButton *)button {
++ (void)readTemperatureValue:(SHDeviceButton *)button {
     
 //    Byte readData[1] = { 0X01 };
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0xE0EC targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:nil needReSend:YES];
@@ -168,7 +168,7 @@ const Byte maxVol = 80; // 其它只有80
 // MARK: - Audio
 
 /// 播放或结束音乐
-+ (void)musicPlayAndStop:(SHButton *)button {
++ (void)musicPlayAndStop:(SHDeviceButton *)button {
     
     NSString *status = [button.currentTitle isEqualToString:@"END"] ? @"PLAY" : @"END";
     
@@ -191,7 +191,7 @@ const Byte maxVol = 80; // 其它只有80
     }
     
     // 获得按钮
-    SHButton *button = (SHButton *)recognizer.view;
+    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
     // 获得按钮的文字
     NSString *title = [button titleForState:UIControlStateNormal];
@@ -241,7 +241,7 @@ const Byte maxVol = 80; // 其它只有80
     }
     
     // 获得按钮
-    SHButton *button = (SHButton *)recognizer.view;
+    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
     // 获得当前按钮标题
     if ([[button titleForState:UIControlStateNormal] isEqualToString:@"END"]) {
@@ -280,7 +280,7 @@ const Byte maxVol = 80; // 其它只有80
 
  
 /// 窗帘打开和关闭
-+ (void)curtainOpenOrClose:(SHButton *)button {
++ (void)curtainOpenOrClose:(SHDeviceButton *)button {
     
     // 获得当前按钮的值并设置改变的状态
     NSString *status = [button.currentTitle isEqualToString:@"Close"] ? @"Open" : @"Close";
@@ -300,7 +300,7 @@ const Byte maxVol = 80; // 其它只有80
 // MARK: - TV
 
 /// 播放电视
-+ (void)watchTv:(SHButton *)button {
++ (void)watchTv:(SHDeviceButton *)button {
     
     // 获得当前按钮的值并设置改变的状态
     NSString *status = [[button titleForState:UIControlStateNormal] isEqualToString:@"OFF"] ? @"ON" : @"OFF";
@@ -317,13 +317,13 @@ const Byte maxVol = 80; // 其它只有80
 // MARK: - LED
 
 /// 读取当前的颜色
-+ (void)readLedCurrentColor:(SHButton *)button {
++ (void)readLedCurrentColor:(SHDeviceButton *)button {
     
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0X0033 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:nil needReSend:YES];
 }
 
 // 设置背景颜色
-+ (void)setLED:(SHButton *)button colorData:(NSMutableData *)colorData {
++ (void)setLED:(SHDeviceButton *)button colorData:(NSMutableData *)colorData {
     
      [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0xF080 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:colorData needReSend:YES];
 }
@@ -331,7 +331,7 @@ const Byte maxVol = 80; // 其它只有80
 // MARK: - Read
 
 /// 读取当前设备的所有状态
-+ (void)readDeviceStatus:(SHButton *)button {
++ (void)readDeviceStatus:(SHDeviceButton *)button {
     
     // 发送读取数据的指令
     switch (button.deviceType) {

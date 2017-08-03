@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UIView *showColorView;
 
 /// 当前触发的按钮
-@property (nonatomic, strong) SHButton *currentButton;
+@property (nonatomic, strong) SHDeviceButton *currentButton;
 
 @end
 
@@ -87,7 +87,7 @@
     }
 }
 
-- (void)show:(SHButton *)button {
+- (void)show:(SHDeviceButton *)button {
     
     // 记录按钮
     self.currentButton = button;

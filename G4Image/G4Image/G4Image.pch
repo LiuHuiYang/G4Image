@@ -38,7 +38,7 @@
 #import "UIButton+init.h"
 #import "UIBarButtonItem+init.h"
 #import "SHZone.h"
-#import "SHButton.h"
+#import "SHDeviceButton.h"
 #import "FileTools.h"
 #import "SHSQLiteManager.h"
 #import "SHUdpSocket.h"

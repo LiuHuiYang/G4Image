@@ -27,7 +27,10 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    self.colorView.bounds = CGRectMake(0, 0, self.view.frame_width, self.view.frame_width);
+    // 获得取小宽度
+    CGFloat colorWidth = MIN(self.view.frame_width, self.view.frame_height);
+    
+    self.colorView.frame = CGRectMake(0, 0, colorWidth * 0.75, colorWidth * 0.75);
     self.colorView.center = self.view.center;
     
     // 在重绘制图片 -- 触发系统重新绘制 drawRect
@@ -67,7 +70,6 @@
 - (void)setZonesColorData:(NSData *)colorData recognizer:(UIGestureRecognizer *)recognizer {
     
     // 获得当前的按钮
-    
     Byte *colorValue = (Byte *)[colorData bytes];
     
     // 发送LED指令
@@ -81,7 +83,9 @@
     
     // 手势结束才发
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        Byte colorArray[] = { (Byte)red, (Byte)green, (Byte)blue, (Byte)alpha, 0X00, 0X00};
+        
+        // 为了匹配四通道的LED的第四个参数统一设为 0 
+        Byte colorArray[] = { red, green, blue, 0, 0X00, 0X00};
     
         [SHSendDeviceData setLED:self.currentButton colorData:[NSMutableData dataWithBytes:colorArray length:sizeof(colorArray)]];
     }

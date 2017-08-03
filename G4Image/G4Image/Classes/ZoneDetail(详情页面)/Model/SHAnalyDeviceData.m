@@ -225,17 +225,21 @@
     
     Byte *recivedData = ((Byte *) [data bytes]);
     
+    if (recivedData[0] != 0X10) {
+        return;
+    }
+    
     // 获得子网ID和设备ID
     Byte subNetID = recivedData[1];
     Byte deviceID = recivedData[2];
     
     NSUInteger startIndex = 9;
     
-    for (int i = 0; i < data.length; i++) {
-        printf("%#02X ", recivedData[i]);
-    }
-    
-    SHLog(@"结束");
+//    for (int i = 0; i < data.length; i++) {
+//        printf("%#02X ", recivedData[i]);
+//    }
+//    
+//    SHLog(@"结束");
 
     // 获取颜色
     CGFloat red = recivedData[++startIndex] / 100.0;

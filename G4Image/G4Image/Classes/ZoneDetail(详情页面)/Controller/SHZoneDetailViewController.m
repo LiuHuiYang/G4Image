@@ -608,13 +608,7 @@ const CGFloat SHDeviceButtonPadding = 5;
         
         _deviceListView = [[UIScrollView alloc] init];
         _deviceListView.showsVerticalScrollIndicator = YES;
-        _deviceListView.pagingEnabled = YES;
-        
-        // 添加按钮
-//        NSArray *deviceKinds =
-
-//        self.deviceKinds = deviceKinds;
-
+//        _deviceListView.pagingEnabled = YES;
         
         _deviceListView.contentSize = CGSizeMake(0, self.deviceKinds.count * SHNavigationBarHeight);
         

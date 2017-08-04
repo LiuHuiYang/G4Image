@@ -37,6 +37,18 @@
 /// 环境温度
 @property (assign, nonatomic) Byte indoorTemperature;
 
+/// 通风模式的温度
+@property (assign, nonatomic) Byte coolTemperture;
+
+/// 制热模式的温度
+@property (assign, nonatomic) Byte heatTemperture;
+
+/// 自动模式的温度
+@property (assign, nonatomic) Byte autoTemperture;
+
+/// 工作模式
+@property (assign, nonatomic) SHAirConditioningModeKind acMode;
+
 // MARK: - 打开与关闭空调
 
 /// 环境温度
@@ -59,6 +71,20 @@
 
 /// 自动风速
 @property (weak, nonatomic) IBOutlet UIButton *autoFanButton;
+
+// MARK: - 模式控制
+
+/// 制冷模式
+@property (weak, nonatomic) IBOutlet UIButton *coldModelButton;
+
+/// 制热模式
+@property (weak, nonatomic) IBOutlet UIButton *heatModelButton;
+
+/// 通风模式
+@property (weak, nonatomic) IBOutlet UIButton *fanModelButton;
+
+/// 自动模式
+@property (weak, nonatomic) IBOutlet UIButton *autoModelButton;
 
 @end
 
@@ -84,6 +110,58 @@
 // MARK: - 开启与关闭
 
 
+// MARK: - 模式控制
+
+/// 制冷模式
+- (IBAction)coldModelButtonClick {
+    
+    [self controlHVACSelectButton:self.coldModelButton acModeValue:SHAirConditioningModeKindCool setTempertureKind:SHAirConditioningControlTypeCoolTemperatureSet temperture:self.coolTemperture];
+}
+
+/// 制热模式
+- (IBAction)heatModelButtonClick {
+    
+    [self controlHVACSelectButton:self.heatModelButton acModeValue:SHAirConditioningModeKindHeat setTempertureKind:0x07 temperture:self.heatTemperture];
+}
+
+/// 通风模式
+- (IBAction)fanModelButtonClick {
+    
+    // 如果DDP上有bug ，如果实现测试发现有问题，就打开这个注释
+    //    [self coldModelButtonClick];
+    
+    // 设置
+    [self controlHVACSelectButton:self.fanModelButton acModeValue:SHAirConditioningModeKindFan setTempertureKind:SHAirConditioningControlTypeCoolTemperatureSet temperture:self.coolTemperture];
+}
+
+/// 自动控制模式
+- (IBAction)autoModelButtonClick {
+    
+    [self controlHVACSelectButton:self.autoModelButton acModeValue:SHAirConditioningModeKindAuto setTempertureKind:SHAirConditioningControlTypeAutoTemperatureSet temperture:self.autoTemperture];
+}
+
+/// 快速控制空调
+- (void)controlHVACSelectButton:(UIButton *)selectModelButton acModeValue:(SHAirConditioningModeKind)modeKind setTempertureKind:(Byte)tempertureKind temperture:(Byte )temperature {
+    
+    // 全部取消
+    self.autoModelButton.selected = NO;
+    self.coldModelButton.selected = NO;
+    self.heatModelButton.selected = NO;
+    self.fanModelButton.selected = NO;
+    
+    // 选中的按钮
+    selectModelButton.selected = YES;
+    
+    Byte controlModelData[2] = {SHAirConditioningControlTypeAcModeSet, modeKind};
+    
+    // 设置模式
+    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:self.currentButton.subNetID targetDeviceID:self.currentButton.deviceID additionalContentData:[NSMutableData dataWithBytes:controlModelData length:sizeof(controlModelData)] needReSend:NO];
+    
+    // 对应的温度
+    Byte controlTempertureData[2] = {tempertureKind, temperature };
+    
+//    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:self.currentButton.subNetID targetDeviceID:self.currentButton.deviceID additionalContentData:[NSMutableData dataWithBytes:controlTempertureData length:sizeof(controlTempertureData)] needReSend:NO];
+}
 
 // MARK: - 控制风速
 
@@ -184,7 +262,7 @@
                 case SHAirConditioningControlTypeCoolTemperatureSet: {
                     
                     // 获得状态
-//                    self.currentSelecthvac.coolTemperture = operatorResult;
+                    self.coolTemperture = operatorResult;
                 }
                     break;
                     
@@ -200,7 +278,7 @@
                 case SHAirConditioningControlTypeAcModeSet: {
                     
                     // 获得状态
-//                    self.currentSelecthvac.acMode = operatorResult;
+                    self.acMode = operatorResult;
                 }
                     break;
                     
@@ -208,7 +286,7 @@
                 case SHAirConditioningControlTypeHeatTemperatureSet: {
                     
                     // 获得状态
-//                    self.currentSelecthvac.heatTemperture = operatorResult;
+                    self.heatTemperture = operatorResult;
                 }
                     break;
                     
@@ -279,8 +357,6 @@
     self.modeControlView.hidden = !self.isTurnOn;
     
     self.trunOnAndOffButton.selected = self.isTurnOn;
-
-//    [self.trunOnAndOffButton setImage:[UIImage imageNamed:@"turnon"] forState:UIControlStateSelected];
     
     // 2.设置环境温度
     
@@ -323,6 +399,49 @@
             break;
     }
 
+    // 4.设置工作模式
+    self.coldModelButton.selected = NO;
+    self.heatModelButton.selected = NO;
+    self.fanModelButton.selected = NO;
+    self.autoModelButton.selected = NO;
+    
+    switch (self.acMode) {
+            
+        case SHAirConditioningModeKindCool: {
+            
+            self.coldModelButton.selected = YES;
+//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.coolTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+        }
+            break;
+            
+        case SHAirConditioningModeKindHeat: {
+            
+            self.heatModelButton.selected = YES;
+//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.heatTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+            
+//            self.modelImageView.image = [UIImage imageNamed:@"heatModel"];
+        }
+            break;
+            
+        case SHAirConditioningModeKindFan: {
+            
+            self.fanModelButton.selected = YES;
+            
+//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.coolTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+        }
+            break;
+            
+        case SHAirConditioningModeKindAuto: {
+            
+            self.autoModelButton.selected = YES;
+            
+//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.autoTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

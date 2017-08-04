@@ -26,5 +26,15 @@
 }
 
 
+// MARK: - 手机不横屏
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        return [super supportedInterfaceOrientations];
+    }
+    
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 @end

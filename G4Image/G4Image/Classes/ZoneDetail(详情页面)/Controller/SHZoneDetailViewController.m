@@ -202,8 +202,10 @@ const CGFloat SHDeviceButtonPadding = 5;
 }
 
 /// 进入界面不能缩放
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [SHUdpSocket shareSHUdpSocket].delegate = self;
     
     // 禁止scrollView缩放
     self.showZoneView.scrollView.pinchGestureRecognizer.enabled = NO;
@@ -281,12 +283,12 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeAirConditioning: { // 空调
             
-            [button addTarget:self action:@selector(acOnAndOff:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(controlAirConditioning:) forControlEvents:UIControlEventTouchUpInside];
             
             // 增加值变化
-            UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateACTempture:)];
-            [panMove setTranslation:CGPointZero inView:button];
-            [button addGestureRecognizer:panMove];
+//            UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateACTempture:)];
+//            [panMove setTranslation:CGPointZero inView:button];
+//            [button addGestureRecognizer:panMove];
         }
             break;
             
@@ -435,7 +437,7 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeAirConditioning:
             
-            [newButton addTarget:self action:@selector(acOnAndOff:) forControlEvents:UIControlEventTouchUpInside];
+            [newButton addTarget:self action:@selector(controlAirConditioning:) forControlEvents:UIControlEventTouchUpInside];
             break;
             
         case  SHDeviceButtonTypeAudio:
@@ -539,9 +541,10 @@ const CGFloat SHDeviceButtonPadding = 5;
     [SHSendDeviceData musicPlayAndStop:button];
 }
 
-/// AC 空调开关
-- (void)acOnAndOff:(SHDeviceButton *)button {
-    [SHSendDeviceData acOnAndOff:button];
+/// 控制空调的显示
+- (void)controlAirConditioning:(SHDeviceButton *)button {
+
+    [SHSendDeviceData setAirConditioning:button];
 }
 
 /// 开关点击

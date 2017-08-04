@@ -15,42 +15,23 @@
     
     Byte *recivedData = ((Byte *) [data bytes]);
     
-     UInt16 operatorCode = ((recivedData[5] << 8) | recivedData[6]);
-    if (operatorCode == 0XE0ED) {
-        SHLog(@"ssss");
-    }
+    UInt16 operatorCode = ((recivedData[5] << 8) | recivedData[6]);
     
     // 获得子网ID和设备ID
     Byte subNetID = recivedData[1];
     Byte deviceID = recivedData[2];
     
-    // 获得操试方式
-    Byte operatorKind = recivedData[9];
-    // 获得操作结果
-    Byte operatorResult = recivedData[10];
+    BOOL isOn = NO;
     
-    NSString *status = @"";
+    if (operatorCode == 0XE0ED) {
+        
+        isOn = (recivedData[9] == 0X01);
     
-    
-    switch (operatorKind) {
-            
-            // AC ON/OFF
-        case 0X03: {
-            status = (operatorResult == 0X01) ? @"ON" : @"OFF";
+    } else if (operatorCode == 0XE3D9) {
+        
+        if (recivedData[9] == SHAirConditioningControlTypeOnAndOFF) {
+            isOn = (recivedData[10] == 0X01);
         }
-            break;
-            
-        case 0X01: // 程序启动进入状态
-            // Cool temperature Set Point
-        case 0X04:{
-            status = [NSString stringWithFormat:@"%d°C", operatorResult];
-        }
-            break;
-            
-            // 没有处理的其他情况，暂时使用AC显示
-        default:
-            status = @"AC";
-            break;
     }
     
     // 找到区域的按钮
@@ -58,7 +39,7 @@
         if (button.subNetID == subNetID && button.deviceID == deviceID) {
             
             // 设置改变的状态
-            [button setTitle:status forState:UIControlStateNormal];
+            [button setTitle:(isOn ? SHDeviceButtonTypeAirConditioningStatusON : SHDeviceButtonTypeAirConditioningStatusOFF) forState:UIControlStateNormal];
         }
     }
 }

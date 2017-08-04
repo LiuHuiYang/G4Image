@@ -26,6 +26,9 @@
 
 // MARK: - AC
 
+/// 设置空调
++ (void)setAirConditioning:(SHDeviceButton *)button;
+
 /// AC 空调开关
 + (void)acOnAndOff:(SHDeviceButton *)button;
 

@@ -10,6 +10,8 @@
 
 #import "SHSelectColorViewController.h"
 
+#import "SHSetAirConditionerViewController.h"
+
 /// 灯光的最高亮度
 const Byte lightValue = 100;
 
@@ -96,6 +98,29 @@ const Byte maxVol = 80; // 其它只有80
 
 // MARK: - 空调
 
+/// 设置空调
++ (void)setAirConditioning:(SHDeviceButton *)button {
+    
+    // 获得当前的状态
+//    NSString *status = (!button.currentTitle || [button.currentTitle isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) ?  SHDeviceButtonTypeAirConditioningStatusON : SHDeviceButtonTypeAirConditioningStatusOFF;
+//    
+//    [button setTitle:status forState:UIControlStateNormal];
+//    
+//    if ([button.currentTitle isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) {
+//        
+//        // 关闭空调
+//        Byte acControlData[] = {SHAirConditioningControlTypeOnAndOFF, 0};
+//        
+//        [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:acControlData length:sizeof(acControlData)] needReSend:YES];
+//        
+//    } else {
+    
+        SHSetAirConditionerViewController *setAirConditionerController = [[SHSetAirConditionerViewController alloc] init];
+        [setAirConditionerController show:button];
+//    }
+    
+}
+
 /// AC 空调开关
 + (void)acOnAndOff:(SHDeviceButton *)button {
     
@@ -119,7 +144,7 @@ const Byte maxVol = 80; // 其它只有80
     if (![recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         return;
     }
-
+    
     // 获得按钮
     SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
@@ -157,10 +182,12 @@ const Byte maxVol = 80; // 其它只有80
 }
 
 /// 读取当前AC的温度
-+ (void)readTemperatureValue:(SHDeviceButton *)button {
++ (void)readAcStatus:(SHDeviceButton *)button {
     
-//    Byte readData[1] = { 0X01 };
-    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0xE0EC targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:nil needReSend:YES];
+
+    // 读取状态空调的开关状态
+    Byte readHVACdata[] = { 0 };
+    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE0EC targetSubnetID:button.subNetID  targetDeviceID:button.deviceID  additionalContentData:[NSMutableData dataWithBytes:readHVACdata length:sizeof(readHVACdata)] needReSend:NO];
 }
 
 
@@ -177,7 +204,7 @@ const Byte maxVol = 80; // 其它只有80
     Byte playOrEnd = ([status isEqualToString:SHDeviceButtonTypeAudioStatusON]) ? 0X03 : 0X04;
     
     Byte sonData[4] = {0X04, playOrEnd, 0X00, 0X00};
-
+    
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0X0218 targetSubnetID:button.subNetID targetDeviceID: button.deviceID additionalContentData:[NSMutableData dataWithBytes:sonData length:sizeof(sonData)] needReSend:YES];
 }
 
@@ -220,7 +247,7 @@ const Byte maxVol = 80; // 其它只有80
         
         // 每隔一段时间发送一次 (会造成目标设备与发送设备不一致，但为了更加稳定不要每次都发送。)
         if (!(voice % 4)) {
-        
+            
             // 改变声音
             Byte array[4] = {0X05, 0X01, 0X03,  maxVol - voice };
             
@@ -233,7 +260,7 @@ const Byte maxVol = 80; // 其它只有80
 
 /// 切换音乐
 + (void)switchMusic:(UISwipeGestureRecognizer *)recognizer {
-
+    
     // 必须是清扫手势
     if (![recognizer isKindOfClass:[UISwipeGestureRecognizer class]]) {
         return;
@@ -274,7 +301,7 @@ const Byte maxVol = 80; // 其它只有80
 }
 
 // MARK: - Curtain
- 
+
 /// 窗帘打开和关闭
 + (void)curtainOpenOrClose:(SHDeviceButton *)button {
     
@@ -328,7 +355,7 @@ const Byte maxVol = 80; // 其它只有80
         [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XF080 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:ledData length:sizeof(ledData)] needReSend:YES];
         
     } else {
-     
+        
         SHSelectColorViewController *selectController = [[SHSelectColorViewController alloc] init];
         [selectController show:button];
     }
@@ -343,7 +370,7 @@ const Byte maxVol = 80; // 其它只有80
 // 设置背景颜色
 + (void)setLED:(SHDeviceButton *)button colorData:(NSMutableData *)colorData {
     
-     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0xF080 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:colorData needReSend:YES];
+    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0xF080 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:colorData needReSend:YES];
 }
 
 // MARK: - Read
@@ -361,7 +388,7 @@ const Byte maxVol = 80; // 其它只有80
             
             // 空调
         case SHDeviceButtonTypeAirConditioning: {
-            [self readTemperatureValue:button];
+            [self readAcStatus:button];
         }
             break;
             
@@ -385,6 +412,7 @@ const Byte maxVol = 80; // 其它只有80
         default:
             break;
     }
+    
 }
 
 @end

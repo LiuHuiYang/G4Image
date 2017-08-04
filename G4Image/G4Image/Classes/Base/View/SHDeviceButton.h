@@ -8,33 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-// 不同设备按钮的状态
+#import "SHDeviceOperatorKindAndStatus.h"
 
-#define SHDeviceButtonTypeLEDStatusON (@"ON")
-#define SHDeviceButtonTypeLEDStatusOFF (@"OFF")
-
-#define SHDeviceButtonTypeAirConditioningStatusON (@"ON")
-#define SHDeviceButtonTypeAirConditioningStatusOFF (@"OFF")
-
-#define SHDeviceButtonTypeCurtainStatusON (@"OPEN")
-#define SHDeviceButtonTypeCurtainStatusOFF (@"CLOSE")
-
-#define SHDeviceButtonTypeAudioStatusON (@"PLAY")
-#define SHDeviceButtonTypeAudioStatusOFF (@"END")
-
-#define SHDeviceButtonTypeMediaTVStatusON (@"ON")
-#define SHDeviceButtonTypeMediaTVStatusOFF (@"OFF")
-
-// 音乐播放控制
-typedef enum  {
-    
-    SHAudoiPalyControlNone,
-    SHAudoiPalyControlPrevious,
-    SHAudoiPalyControlNext,
-    SHAudoiPalyControlPlay,
-    SHAudoiPalyControlStop
-    
-} SHAudoiPalyControl;
 
 /// 按钮类型
 typedef enum  {

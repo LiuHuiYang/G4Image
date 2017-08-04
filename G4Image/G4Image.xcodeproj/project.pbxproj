@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B36BD2C1F340F2300F282B3 /* SHSetAirConditionerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36BD2A1F340F2300F282B3 /* SHSetAirConditionerViewController.m */; };
+		8B36BD2D1F340F2300F282B3 /* SHSetAirConditionerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B36BD2B1F340F2300F282B3 /* SHSetAirConditionerViewController.xib */; };
 		8B3F7F301F332C7E00685441 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F7F2F1F332C7E00685441 /* main.m */; };
 		8B3F7F331F332C7E00685441 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F7F321F332C7E00685441 /* AppDelegate.m */; };
 		8B3F7F3B1F332C7E00685441 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B3F7F3A1F332C7E00685441 /* Assets.xcassets */; };
@@ -95,6 +97,10 @@
 /* Begin PBXFileReference section */
 		02689ACB96C59B1CA210629F /* Pods-G4Image.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G4Image.debug.xcconfig"; path = "Pods/Target Support Files/Pods-G4Image/Pods-G4Image.debug.xcconfig"; sourceTree = "<group>"; };
 		7209658D91EDA7A398412AE1 /* libPods-G4Image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-G4Image.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B36BD291F340F2300F282B3 /* SHSetAirConditionerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSetAirConditionerViewController.h; sourceTree = "<group>"; };
+		8B36BD2A1F340F2300F282B3 /* SHSetAirConditionerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSetAirConditionerViewController.m; sourceTree = "<group>"; };
+		8B36BD2B1F340F2300F282B3 /* SHSetAirConditionerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHSetAirConditionerViewController.xib; sourceTree = "<group>"; };
+		8B36BD2E1F34106E00F282B3 /* SHDeviceOperatorKindAndStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHDeviceOperatorKindAndStatus.h; sourceTree = "<group>"; };
 		8B3F7F2B1F332C7E00685441 /* G4Image.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = G4Image.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3F7F2F1F332C7E00685441 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8B3F7F311F332C7E00685441 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -236,6 +242,16 @@
 				7209658D91EDA7A398412AE1 /* libPods-G4Image.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B36BD281F340D2B00F282B3 /* ControlHVAC */ = {
+			isa = PBXGroup;
+			children = (
+				8B36BD291F340F2300F282B3 /* SHSetAirConditionerViewController.h */,
+				8B36BD2A1F340F2300F282B3 /* SHSetAirConditionerViewController.m */,
+				8B36BD2B1F340F2300F282B3 /* SHSetAirConditionerViewController.xib */,
+			);
+			path = ControlHVAC;
 			sourceTree = "<group>";
 		};
 		8B3F7F221F332C7E00685441 = {
@@ -457,6 +473,7 @@
 			children = (
 				8B6D0B061F334F5100271E91 /* SHDeviceButton.h */,
 				8B6D0B071F334F5100271E91 /* SHDeviceButton.m */,
+				8B36BD2E1F34106E00F282B3 /* SHDeviceOperatorKindAndStatus.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -474,6 +491,7 @@
 		8B6D0B131F334F8800271E91 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8B36BD281F340D2B00F282B3 /* ControlHVAC */,
 				8B6D0B141F334F8800271E91 /* SelectColorController */,
 				8B6D0B171F334F8800271E91 /* SHZoneDetailViewController.h */,
 				8B6D0B181F334F8800271E91 /* SHZoneDetailViewController.m */,
@@ -704,6 +722,7 @@
 				8B3F7F981F332D7500685441 /* wenzi@3x.png in Resources */,
 				8B6D0ADA1F334E9700271E91 /* MBProgressHUD.bundle in Resources */,
 				8B3F7F931F332D7500685441 /* line06.png in Resources */,
+				8B36BD2D1F340F2300F282B3 /* SHSetAirConditionerViewController.xib in Resources */,
 				8B3F7F781F332D7500685441 /* iPhone4@2x.png in Resources */,
 				8B6D0B331F334FAB00271E91 /* SHSettingViewController.storyboard in Resources */,
 				8B3F7F861F332D7500685441 /* line01@3x.png in Resources */,
@@ -772,6 +791,7 @@
 			files = (
 				8B6D0ADB1F334E9700271E91 /* MBProgressHUD.m in Sources */,
 				8B6D0AD91F334E9700271E91 /* MBProgressHUD+MJ.m in Sources */,
+				8B36BD2C1F340F2300F282B3 /* SHSetAirConditionerViewController.m in Sources */,
 				8B6D0B691F3367E400271E91 /* UIImage+Path.m in Sources */,
 				8B6D0B2A1F334F8800271E91 /* SHColorWheelView.m in Sources */,
 				8B6D0AF31F334F1800271E91 /* SHSQLiteManager.m in Sources */,

@@ -16,7 +16,7 @@
 // 导入相关的宏
 
 // 全局颜色
-#define SHGlobalBackgroundColor ([UIColor colorWithWhite:131/255.0 alpha:1.0])
+#define SHGlobalBackgroundColor ([UIColor colorWithWhite:191/255.0 alpha:1.0])
 
 /// tabBar字体
 #define SHTabBarFont ([UIFont systemFontOfSize:14])

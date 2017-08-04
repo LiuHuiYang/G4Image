@@ -57,6 +57,9 @@
 
 // MARK: - LED
 
+/// 设置led
++ (void)ledOnAndOff:(SHDeviceButton *)button;
+
 // 设置背景颜色
 + (void)setLED:(SHDeviceButton *)button colorData:(NSMutableData *)colorData;
 

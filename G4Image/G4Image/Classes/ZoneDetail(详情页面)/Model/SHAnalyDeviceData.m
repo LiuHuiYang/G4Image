@@ -207,7 +207,7 @@
     // 获得开关的状态
     Byte statues = recivedData[10];
     
-    NSString *title = statues ? @"ON" : @"OFF";
+    NSString *title = statues ? SHDeviceButtonTypeMediaTVStatusON : SHDeviceButtonTypeMediaTVStatusOFF;
     
     // 找到这个按钮
     for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
@@ -235,32 +235,22 @@
     
     NSUInteger startIndex = 9;
     
-//    for (int i = 0; i < data.length; i++) {
-//        printf("%#02X ", recivedData[i]);
-//    }
-//    
-//    SHLog(@"结束");
-
+ 
     // 获取颜色
-    CGFloat red = recivedData[++startIndex] / 100.0;
-    CGFloat green = recivedData[++startIndex] / 100.0;
-    CGFloat blue = recivedData[++startIndex]  / 100.0 ;
-    CGFloat alpha = recivedData[++startIndex]  / 100.0;
+    Byte red = recivedData[++startIndex];   // / 100.0;
+    Byte green = recivedData[++startIndex]; // / 100.0;
+    Byte blue = recivedData[++startIndex];  //  / 100.0 ;
+    Byte alpha = recivedData[++startIndex]; //  / 100.0;
 
-    UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+//    UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+    
+    BOOL isOn = red || green || blue || alpha;
     
     // 找到button
     for (SHDeviceButton *button in zone.allDeviceButtonInCurrentZone) {
         if (button.deviceType == SHDeviceButtonTypeLed && button.subNetID == subNetID && button.deviceID == deviceID) {
-
-            // 设置显示图征的控件渲染模式为白色
-            [button.imageView setTintColor:color];
-            
-            // 获得原画的图片
-            UIImage *image = [[button imageForState:UIControlStateNormal] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    
-            // 设置图片 始终根据Tint Color绘制图片，忽略图片的颜色信息。
-            [button setImage:image forState:UIControlStateNormal];
+ 
+            [button setTitle:(isOn ? SHDeviceButtonTypeLEDStatusON : SHDeviceButtonTypeLEDStatusOFF) forState:UIControlStateNormal];
         }
     }
 }
@@ -292,7 +282,7 @@
             break;
             
             
-            // 测试LED --
+            //
         case 0XF081: {
             [self analyLED:data inZone:zone];
         }

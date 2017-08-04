@@ -270,8 +270,6 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case  SHDeviceButtonTypeLight: {  // 灯
             
-//            [button buttonWithTitle:@"Light" imageName:@"Light" target:self action:@selector(lightPressed:)];
-            
             [button addTarget:self action:@selector(lightPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             // 增加值变化
@@ -283,8 +281,6 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeAirConditioning: { // 空调
             
-//            [button buttonWithTitle:@"OFF" imageName:@"AC" target:self action:@selector(acOnAndOff:)];
-            
             [button addTarget:self action:@selector(acOnAndOff:) forControlEvents:UIControlEventTouchUpInside];
             
             // 增加值变化
@@ -295,8 +291,6 @@ const CGFloat SHDeviceButtonPadding = 5;
             break;
             
         case  SHDeviceButtonTypeAudio: { // 音乐
-            
-//            [button buttonWithTitle:@"END" imageName:@"Audio" target:self action:@selector(musicPlayAndStop:)];
             
             [button addTarget:self action:@selector(musicPlayAndStop:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -331,8 +325,6 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeCurtain: {
             
-//            [button buttonWithTitle:@"Curtain" imageName:@"Curtain" target:self action:@selector(curtainPressed:)];
-            
              [button addTarget:self action:@selector(curtainPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
             
@@ -340,18 +332,13 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeMediaTV: { // 电视
             
-//            [button buttonWithTitle:@"OFF" imageName:@"TV" target:self action:@selector(watchTvPressed:)];
-            
             [button addTarget:self action:@selector(watchTvPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
             break;
             
         case SHDeviceButtonTypeLed: {
             
-            // 增加监听
-//            [button buttonWithTitle:@"LED" imageName:@"LED" target:self action:@selector(setLedColor:)];
-            
-            [button addTarget:self action:@selector(setLedColor:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(ledPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
             break;
             
@@ -415,7 +402,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     [SHSendDeviceData updateDimmerBrightness:recognizer];
 }
 
-///  双击
+///  单击选择设备
 - (void)selectDeviceTouched:(SHDeviceButton *)button {
     
     // 创建一个新的按钮
@@ -442,21 +429,16 @@ const CGFloat SHDeviceButtonPadding = 5;
     // 设置图片
     switch (button.deviceType) {
         case  SHDeviceButtonTypeLight:
-            
-//            [newButton buttonWithTitle:@"" imageName:nil target:self action:@selector(lightPressed:)];
+
             [newButton addTarget:self action:@selector(lightPressed:) forControlEvents:UIControlEventTouchUpInside];
             break;
             
         case SHDeviceButtonTypeAirConditioning:
             
-//            [newButton buttonWithTitle:@"OFF" imageName:@"AC" target:self action:@selector(acOnAndOff:)];
-            
             [newButton addTarget:self action:@selector(acOnAndOff:) forControlEvents:UIControlEventTouchUpInside];
             break;
             
         case  SHDeviceButtonTypeAudio:
-            
-//            [newButton buttonWithTitle:@"END" imageName:@"Audio" target:self action:@selector(musicPlayAndStop:)];
             
             [newButton addTarget:self action:@selector(musicPlayAndStop:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -464,23 +446,19 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeCurtain:
             
-//            [newButton buttonWithTitle:@"Close" imageName:@"Curtain" target:self action:@selector(curtainPressed:)];
-            
             [newButton addTarget:self action:@selector(curtainPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
             
         case SHDeviceButtonTypeMediaTV:
             
-//            [newButton buttonWithTitle:@"OFF" imageName:@"TV" target:self action:@selector(watchTvPressed:)];
              [newButton addTarget:self action:@selector(watchTvPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
             
         case SHDeviceButtonTypeLed:
-//            [newButton buttonWithTitle:@"LED" imageName:@"LED" target:self action:@selector(setLedColor:)];
             
-             [newButton addTarget:self action:@selector(setLedColor:) forControlEvents:UIControlEventTouchUpInside];
+             [newButton addTarget:self action:@selector(ledPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
             
@@ -572,11 +550,10 @@ const CGFloat SHDeviceButtonPadding = 5;
     [SHSendDeviceData setDimmer:button];
 }
 
-/// 设置LED的颜色
-- (void)setLedColor:(SHDeviceButton *)button {
-    
-    SHSelectColorViewController *selectController = [[SHSelectColorViewController alloc] init];
-    [selectController show:button];
+/// LED的开关被点击
+- (void)ledPressed:(SHDeviceButton *)button {
+
+    [SHSendDeviceData ledOnAndOff:button];
 }
 
 // MARK: - getter && setter

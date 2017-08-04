@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+// 不同设备按钮的状态
+
+#define SHDeviceButtonTypeLEDStatusON (@"ON")
+#define SHDeviceButtonTypeLEDStatusOFF (@"OFF")
+
+#define SHDeviceButtonTypeAirConditioningStatusON (@"ON")
+#define SHDeviceButtonTypeAirConditioningStatusOFF (@"OFF")
+
+#define SHDeviceButtonTypeCurtainStatusON (@"OPEN")
+#define SHDeviceButtonTypeCurtainStatusOFF (@"CLOSE")
+
+#define SHDeviceButtonTypeAudioStatusON (@"PLAY")
+#define SHDeviceButtonTypeAudioStatusOFF (@"END")
+
+#define SHDeviceButtonTypeMediaTVStatusON (@"ON")
+#define SHDeviceButtonTypeMediaTVStatusOFF (@"OFF")
+
 // 音乐播放控制
 typedef enum  {
     

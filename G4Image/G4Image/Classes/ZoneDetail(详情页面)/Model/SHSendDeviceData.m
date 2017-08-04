@@ -8,17 +8,7 @@
 
 #import "SHSendDeviceData.h"
 
-#define SHDeviceButtonTypeAirConditioningStatusON (@"ON")
-#define SHDeviceButtonTypeAirConditioningStatusOFF (@"OFF")
-
-#define SHDeviceButtonTypeCurtainStatusON (@"OPEN")
-#define SHDeviceButtonTypeCurtainStatusOFF (@"CLOSE")
-
-#define SHDeviceButtonTypeAudioStatusON (@"PLAY")
-#define SHDeviceButtonTypeAudioStatusOFF (@"END")
-
-#define SHDeviceButtonTypeMediaTVStatusON (@"ON")
-#define SHDeviceButtonTypeMediaTVStatusOFF (@"OFF")
+#import "SHSelectColorViewController.h"
 
 /// 灯光的最高亮度
 const Byte lightValue = 100;
@@ -283,10 +273,7 @@ const Byte maxVol = 80; // 其它只有80
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0x0218 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:songDataArray length:sizeof(songDataArray)] needReSend:YES];
 }
 
-
-
 // MARK: - Curtain
-
  
 /// 窗帘打开和关闭
 + (void)curtainOpenOrClose:(SHDeviceButton *)button {
@@ -324,6 +311,28 @@ const Byte maxVol = 80; // 其它只有80
 }
 
 // MARK: - LED
+
+/// 设置led
++ (void)ledOnAndOff:(SHDeviceButton *)button {
+    
+    // 获得当前的状态
+    NSString *status = (!button.currentTitle || [button.currentTitle isEqualToString:SHDeviceButtonTypeLEDStatusOFF]) ?  SHDeviceButtonTypeLEDStatusON : SHDeviceButtonTypeLEDStatusOFF;
+    
+    [button setTitle:status forState:UIControlStateNormal];
+    
+    if ([button.currentTitle isEqualToString:SHDeviceButtonTypeMediaTVStatusOFF]) {
+        
+        Byte ledData[6] = {0X0, 0X0, 0X0, 0X0, 0X0, 0X0};
+        
+        // 发送指令
+        [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XF080 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:ledData length:sizeof(ledData)] needReSend:YES];
+        
+    } else {
+     
+        SHSelectColorViewController *selectController = [[SHSelectColorViewController alloc] init];
+        [selectController show:button];
+    }
+}
 
 /// 读取当前的颜色
 + (void)readLedCurrentColor:(SHDeviceButton *)button {

@@ -143,9 +143,6 @@ const CGFloat SHDeviceButtonPadding = 5;
                     
                 case SHDeviceButtonTypeAirConditioning: {
                     
-                    UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateACTempture:)];
-                    [panMove setTranslation:CGPointZero inView:button];
-                    [button addGestureRecognizer:panMove];
                 }
                     break;
                     
@@ -390,12 +387,6 @@ const CGFloat SHDeviceButtonPadding = 5;
 - (void)updateAuidoVOL:(UIPanGestureRecognizer *)recognizer {
     
     [SHSendDeviceData updateAuidoVOL:recognizer];
-}
-
-/// 改变AC的温度值
-- (void)updateACTempture:(UIPanGestureRecognizer *)recognizer {
-    
-    [SHSendDeviceData updateACTempture:recognizer];
 }
 
 /// 改变灯光的值

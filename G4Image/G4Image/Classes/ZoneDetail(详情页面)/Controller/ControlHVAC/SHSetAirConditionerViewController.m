@@ -425,6 +425,9 @@
     
     self.trunOnAndOffButton.selected = self.isTurnOn;
     
+    // 设置标题
+    [self.currentButton setTitle:(self.isTurnOn ? SHDeviceButtonTypeAirConditioningStatusON : SHDeviceButtonTypeAirConditioningStatusOFF) forState:UIControlStateNormal];
+    
     // 2.设置环境温度
     
     [self.ambientTemperatureButton setTitle:[NSString stringWithFormat:@"%d%@", self.isTurnOn ? self.indoorTemperature : 0, self.isCelsiusFlag ? @"°C" : @"°F"] forState: UIControlStateNormal];
@@ -554,8 +557,21 @@
     self.popoverPresentationController.sourceView = button;
     self.popoverPresentationController.sourceRect = button.bounds;
     
+    // 如果是iPad 设定
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        
+        CGFloat width = 450;
+        self.preferredContentSize = CGSizeMake(width, width * 1.5);
+    }
+    
     // 弹出
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:self animated:YES completion:nil];
+}
+
+- (void)viewDidLayoutSubviews {
+
+    [super viewDidLayoutSubviews];
+
 }
 
 @end

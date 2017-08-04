@@ -102,89 +102,59 @@ const Byte maxVol = 80; // 其它只有80
 + (void)setAirConditioning:(SHDeviceButton *)button {
     
     // 获得当前的状态
-//    NSString *status = (!button.currentTitle || [button.currentTitle isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) ?  SHDeviceButtonTypeAirConditioningStatusON : SHDeviceButtonTypeAirConditioningStatusOFF;
-//    
-//    [button setTitle:status forState:UIControlStateNormal];
-//    
-//    if ([button.currentTitle isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) {
-//        
-//        // 关闭空调
-//        Byte acControlData[] = {SHAirConditioningControlTypeOnAndOFF, 0};
-//        
-//        [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:acControlData length:sizeof(acControlData)] needReSend:YES];
-//        
-//    } else {
     
         SHSetAirConditionerViewController *setAirConditionerController = [[SHSetAirConditionerViewController alloc] init];
         [setAirConditionerController show:button];
+    
+}
+
+///// 改变AC的温度值
+//+ (void)updateACTempture:(UIPanGestureRecognizer *)recognizer {
+//    
+//    // 必须是拖拽手势
+//    if (![recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+//        return;
 //    }
-    
-}
-
-/// AC 空调开关
-+ (void)acOnAndOff:(SHDeviceButton *)button {
-    
-    // 获得当前按钮的值并设置改变的状态
-    NSString *status = [[button titleForState:UIControlStateNormal] isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF] ? SHDeviceButtonTypeAirConditioningStatusON: SHDeviceButtonTypeAirConditioningStatusOFF;
-    
-    // 设置显示
-    [button setTitle:status forState:UIControlStateNormal];
-    
-    Byte acOnAndOff = ([status isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) ? 0X00 : 0x01;
-    
-    Byte acData[] = {0X03, acOnAndOff};
-    
-    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:acData length:sizeof(acData)] needReSend:YES];
-}
-
-/// 改变AC的温度值
-+ (void)updateACTempture:(UIPanGestureRecognizer *)recognizer {
-    
-    // 必须是拖拽手势
-    if (![recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        return;
-    }
-    
-    // 获得按钮
-    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
-    
-    // 获得按钮的文字
-    NSString *title = [button titleForState:UIControlStateNormal];
-    
-    Byte currentValue = [title integerValue];
-    
-    if ([title isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) {
-        [MBProgressHUD showWarning:@"turn on the air conditioner"];
-        return; // 空调是关闭状态不能调温度
-    }
-    
-    if ([title isEqualToString:SHDeviceButtonTypeAirConditioningStatusON]) {
-        currentValue = maxTempture;
-    }
-    
-    //  横坐标上、纵坐标上拖动了多少
-    CGPoint translation = [recognizer translationInView:button];
-    
-    // 获得移动的(距离与方向相反)
-    currentValue -= (translation.y);
-    
-    if (currentValue >= minTempture && currentValue <= maxTempture) {
-        
-        [button setTitle:[NSString stringWithFormat:@"%d°C", currentValue] forState:UIControlStateNormal];
-        
-        // 发送空调指令
-        Byte tempture[] = {0X04, currentValue};
-        [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:tempture length:sizeof(tempture)] needReSend:YES];
-    }
-    
-    //  因为拖动起来一直是在递增，所以每次都要用setTranslation:方法制0这样才不至于不受控制般滑动出视图
-    [recognizer setTranslation:CGPointZero inView:button];
-}
+//    
+//    // 获得按钮
+//    SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
+//    
+//    // 获得按钮的文字
+//    NSString *title = [button titleForState:UIControlStateNormal];
+//    
+//    Byte currentValue = [title integerValue];
+//    
+//    if ([title isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) {
+//        [MBProgressHUD showWarning:@"turn on the air conditioner"];
+//        return; // 空调是关闭状态不能调温度
+//    }
+//    
+//    if ([title isEqualToString:SHDeviceButtonTypeAirConditioningStatusON]) {
+//        currentValue = maxTempture;
+//    }
+//    
+//    //  横坐标上、纵坐标上拖动了多少
+//    CGPoint translation = [recognizer translationInView:button];
+//    
+//    // 获得移动的(距离与方向相反)
+//    currentValue -= (translation.y);
+//    
+//    if (currentValue >= minTempture && currentValue <= maxTempture) {
+//        
+//        [button setTitle:[NSString stringWithFormat:@"%d°C", currentValue] forState:UIControlStateNormal];
+//        
+//        // 发送空调指令
+//        Byte tempture[] = {0X04, currentValue};
+//        [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:tempture length:sizeof(tempture)] needReSend:YES];
+//    }
+//    
+//    //  因为拖动起来一直是在递增，所以每次都要用setTranslation:方法制0这样才不至于不受控制般滑动出视图
+//    [recognizer setTranslation:CGPointZero inView:button];
+//}
 
 /// 读取当前AC的温度
 + (void)readAcStatus:(SHDeviceButton *)button {
     
-
     // 读取状态空调的开关状态
     Byte readHVACdata[] = { 0 };
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE0EC targetSubnetID:button.subNetID  targetDeviceID:button.deviceID  additionalContentData:[NSMutableData dataWithBytes:readHVACdata length:sizeof(readHVACdata)] needReSend:NO];

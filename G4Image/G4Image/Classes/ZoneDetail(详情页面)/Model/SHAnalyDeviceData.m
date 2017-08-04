@@ -143,10 +143,10 @@
             return;
             
         } else if (recivedData[10] == SHAudoiPalyControlStop) {
-            playStatus = @"END";
+            playStatus = SHDeviceButtonTypeAudioStatusOFF;
         } else {
             
-            playStatus = @"PLAY";
+            playStatus = SHDeviceButtonTypeAudioStatusON;
             
             if (recivedData[10] == SHAudoiPalyControlNext) {
                 [MBProgressHUD showStatus:@"Next Song"];

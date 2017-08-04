@@ -83,7 +83,7 @@ typedef enum {
 
 // audio
 #define SHDeviceButtonTypeAudioStatusON (@"PLAY")
-#define SHDeviceButtonTypeAudioStatusOFF (@"END")
+#define SHDeviceButtonTypeAudioStatusOFF (@"STOP")
 
 // tv
 #define SHDeviceButtonTypeMediaTVStatusON (@"ON")

@@ -51,7 +51,10 @@
 
 // MARK: - 打开与关闭空调
 
-/// 环境温度
+/// 模式温度显示按钮
+@property (weak, nonatomic) IBOutlet UIButton *modeTemperatureButton;
+
+/// 环境温度显示按钮
 @property (weak, nonatomic) IBOutlet UIButton *ambientTemperatureButton;
 
 /// 空调开关
@@ -112,6 +115,77 @@
 
 // MARK: - 模式控制
 
+/// 增加温度
+- (IBAction)upTemperature {
+    
+    // 获得当前温度值
+    NSRange range = [self.modeTemperatureButton.currentTitle rangeOfString:@"°"];
+    
+    if (range.location == NSNotFound) {
+        return;
+    }
+    
+    NSUInteger temperature =  [[self.modeTemperatureButton.currentTitle substringToIndex:range.location] integerValue];
+    
+    ++temperature;
+    
+    [self changeModelTemperature:temperature];
+}
+
+/// 降低温度
+- (IBAction)lowerTemperature {
+    
+    NSRange range = [self.modeTemperatureButton.currentTitle rangeOfString:@"°"];
+    
+    if (range.location == NSNotFound) {
+        return;
+    }
+    
+    NSInteger temperature =  [[self.modeTemperatureButton.currentTitle substringToIndex:range.location] integerValue];
+    
+    --temperature;
+        
+    [self changeModelTemperature:temperature];
+}
+
+/// 修改模式温度
+- (void)changeModelTemperature:(Byte)temperature {
+    
+    // 最小温度范围
+    NSInteger minimumTemperature = self.isCelsiusFlag ? SHAirConditioningTemperatureRangeCentigradeMinimumValue : SHAirConditioningTemperatureRangeFahrenheitMinimumValue;
+    
+    // 最大范围
+    NSInteger maximumTemperature = (self.isCelsiusFlag ? SHAirConditioningTemperatureRangeCentigradeMaximumValue : SHAirConditioningTemperatureRangeFahrenheitMaximumValue);
+    
+    
+    if (temperature > maximumTemperature) {
+        temperature = minimumTemperature;
+    }
+    
+    if (temperature < minimumTemperature) {
+        temperature = maximumTemperature;
+    }
+    
+    // 发送温度
+    Byte temperatureData[2] = { 0 };
+    
+    if (self.acMode == SHAirConditioningModeKindHeat) {
+        temperatureData[0] = SHAirConditioningControlTypeHeatTemperatureSet;
+        
+    } else if(self.acMode == SHAirConditioningModeKindFan || self.acMode == SHAirConditioningModeKindCool) {
+        
+        temperatureData[0] = SHAirConditioningControlTypeCoolTemperatureSet;
+        
+    } else if (self.acMode == SHAirConditioningModeKindAuto) {
+        
+        temperatureData[0] = SHAirConditioningControlTypeAutoTemperatureSet;
+    }
+    
+    temperatureData[1] = temperature;
+    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:self.currentButton.subNetID targetDeviceID:self.currentButton.deviceID additionalContentData:[NSMutableData dataWithBytes:temperatureData length:sizeof(temperatureData)] needReSend:NO];
+}
+
+
 /// 制冷模式
 - (IBAction)coldModelButtonClick {
     
@@ -127,8 +201,6 @@
 /// 通风模式
 - (IBAction)fanModelButtonClick {
     
-    // 如果DDP上有bug ，如果实现测试发现有问题，就打开这个注释
-    //    [self coldModelButtonClick];
     
     // 设置
     [self controlHVACSelectButton:self.fanModelButton acModeValue:SHAirConditioningModeKindFan setTempertureKind:SHAirConditioningControlTypeCoolTemperatureSet temperture:self.coolTemperture];
@@ -160,7 +232,7 @@
     // 对应的温度
     Byte controlTempertureData[2] = {tempertureKind, temperature };
     
-//    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:self.currentButton.subNetID targetDeviceID:self.currentButton.deviceID additionalContentData:[NSMutableData dataWithBytes:controlTempertureData length:sizeof(controlTempertureData)] needReSend:NO];
+    [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:self.currentButton.subNetID targetDeviceID:self.currentButton.deviceID additionalContentData:[NSMutableData dataWithBytes:controlTempertureData length:sizeof(controlTempertureData)] needReSend:NO];
 }
 
 // MARK: - 控制风速
@@ -214,9 +286,6 @@
     
    
     Byte acControlData[] = {SHAirConditioningControlTypeOnAndOFF, !self.isTurnOn};
-    
-    // 设置按钮标题
-//    [self.trunOnAndOffButton setTitle:(self.isTurnOn ? SHDeviceButtonTypeAirConditioningStatusOFF : SHDeviceButtonTypeAirConditioningStatusON) forState:UIControlStateNormal];
     
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE3D8 targetSubnetID:self.currentButton.subNetID targetDeviceID:self.currentButton.deviceID additionalContentData:[NSMutableData dataWithBytes:acControlData length:sizeof(acControlData)] needReSend:YES];
 }
@@ -294,7 +363,7 @@
                 case SHAirConditioningControlTypeAutoTemperatureSet: {
                     
                     // 获得状态
-//                    self.currentSelecthvac.autoTemperture = operatorResult;
+                    self.autoTemperture = operatorResult;
                 }
                     break;
                     
@@ -315,20 +384,18 @@
 
             // 获得风速
             self.fanRange = recivedData[11] & 0X0F;
-//
-//            // 获得工作用模式
-//            self.currentSelecthvac.acMode = (recivedData[11] & 0XF0) >> 4;
-//            
-//            // 获得三种不同的温度
-//            
-//            // 通风模式的温度
-//            self.currentSelecthvac.coolTemperture = recivedData[10];
-//            
-//            // 制热模式的温度
-//            self.currentSelecthvac.heatTemperture = recivedData[14];
-//            
-//            // 自动模式的温度
-//            self.currentSelecthvac.autoTemperture = recivedData[16];
+
+            // 获得工作用模式
+            self.acMode = (recivedData[11] & 0XF0) >> 4;
+            
+            // 通风模式的温度
+            self.coolTemperture = recivedData[10];
+
+            // 制热模式的温度
+            self.heatTemperture = recivedData[14];
+
+            // 自动模式的温度
+            self.autoTemperture = recivedData[16];
         }
             break;
             
@@ -410,24 +477,25 @@
         case SHAirConditioningModeKindCool: {
             
             self.coldModelButton.selected = YES;
-//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.coolTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+            
+            [self.modeTemperatureButton setTitle:[NSString stringWithFormat:@"%d%@", self.coolTemperture ,self.isCelsiusFlag ? @"°C" : @"°F"] forState:UIControlStateNormal];
         }
             break;
             
         case SHAirConditioningModeKindHeat: {
             
             self.heatModelButton.selected = YES;
-//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.heatTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
-            
-//            self.modelImageView.image = [UIImage imageNamed:@"heatModel"];
+
+            [self.modeTemperatureButton setTitle:[NSString stringWithFormat:@"%d%@", self.heatTemperture ,self.isCelsiusFlag ? @"°C" : @"°F"] forState:UIControlStateNormal];
+
         }
             break;
             
         case SHAirConditioningModeKindFan: {
             
             self.fanModelButton.selected = YES;
-            
-//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.coolTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+        
+            [self.modeTemperatureButton setTitle:[NSString stringWithFormat:@"%d%@", self.coolTemperture ,self.isCelsiusFlag ? @"°C" : @"°F"] forState:UIControlStateNormal];
         }
             break;
             
@@ -435,7 +503,7 @@
             
             self.autoModelButton.selected = YES;
             
-//            self.modelTemperatureLabel.text = [NSString stringWithFormat:@"%d%@", self.currentSelecthvac.autoTemperture ,self.havcSetUpInfo.isCelsius ? @"°C" : @"°F"];
+            [self.modeTemperatureButton setTitle:[NSString stringWithFormat:@"%d%@", self.autoTemperture ,self.isCelsiusFlag ? @"°C" : @"°F"] forState:UIControlStateNormal];
         }
             break;
             

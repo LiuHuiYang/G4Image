@@ -13,13 +13,13 @@
 // 空调温度范围
 typedef enum {
     
-    SHAirConditioningTemperatureRangeCentigradeMinimumValue = 0,
+    SHAirConditioningTemperatureRangeCentigradeMinimumValue = 16, // 0
     
-    SHAirConditioningTemperatureRangeCentigradeMaximumValue = 30,
+    SHAirConditioningTemperatureRangeCentigradeMaximumValue = 32,  // 30
     
-    SHAirConditioningTemperatureRangeFahrenheitMinimumValue = 32,
+    SHAirConditioningTemperatureRangeFahrenheitMinimumValue = 60, // 32
     
-    SHAirConditioningTemperatureRangeFahrenheitMaximumValue = 86,
+    SHAirConditioningTemperatureRangeFahrenheitMaximumValue = 89, //86
     
 } SHAirConditioningTemperatureRange;
 

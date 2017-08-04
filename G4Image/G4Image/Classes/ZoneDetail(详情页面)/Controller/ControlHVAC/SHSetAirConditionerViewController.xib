@@ -23,6 +23,7 @@
                 <outlet property="lowFanButton" destination="dv0-RE-TMw" id="VeI-Vn-e93"/>
                 <outlet property="middleFanButton" destination="dg3-0V-KAD" id="gYm-DC-kNP"/>
                 <outlet property="modeControlView" destination="vVe-nH-6M0" id="Rsm-h8-NKI"/>
+                <outlet property="modeTemperatureButton" destination="KyS-ND-QIl" id="sFr-Jk-xVE"/>
                 <outlet property="trunOnAndOffButton" destination="WcY-uN-8aF" id="v7e-hp-piJ"/>
                 <outlet property="trunOnAndOffView" destination="MAf-PI-FdP" id="yt5-GT-R5J"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -52,7 +53,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcY-uN-8aF">
                                     <rect key="frame" x="230" y="39" width="85" height="58"/>
-                                    <state key="normal" image="trunoff">
+                                    <state key="normal" image="turnoff">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <state key="selected" image="turnon">
@@ -65,7 +66,7 @@
                                         <action selector="turnOFFAirConditioning" destination="-1" eventType="touchUpInside" id="zEc-QM-zH1"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6W-F2-Wsn">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6W-F2-Wsn">
                                     <rect key="frame" x="125" y="10" width="85" height="116"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                     <state key="normal">
@@ -247,25 +248,27 @@
                                         <action selector="coldModelButtonClick" destination="-1" eventType="touchUpInside" id="TS0-Au-Laa"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ar2-Ge-kqr">
-                                    <rect key="frame" x="30" y="40" width="71.5" height="81"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ar2-Ge-kqr">
+                                    <rect key="frame" x="20" y="40" width="85.5" height="81"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                    <state key="normal" title="增加">
+                                    <state key="normal" image="up">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <state key="selected">
                                         <color key="titleColor" red="0.8862745098" green="0.90980392160000001" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
-                                    <state key="highlighted">
+                                    <state key="highlighted" image="up_highlighted">
                                         <color key="titleColor" red="0.8862745098" green="0.90980392160000001" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="upTemperature" destination="-1" eventType="touchUpInside" id="PXX-3D-9Bi"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-ND-QIl">
-                                    <rect key="frame" x="131.5" y="40" width="72" height="81"/>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-ND-QIl">
+                                    <rect key="frame" x="125.5" y="40" width="84.5" height="81"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                    <state key="normal" title="制冷">
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                    <state key="normal">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <state key="selected">
@@ -326,19 +329,21 @@
                                         <action selector="autoModelButtonClick" destination="-1" eventType="touchUpInside" id="0dN-ge-r0q"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-4l-CJp">
-                                    <rect key="frame" x="233.5" y="40" width="71.5" height="81"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-4l-CJp">
+                                    <rect key="frame" x="230" y="40" width="85" height="81"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                    <state key="normal" title="减小">
+                                    <state key="normal" image="down">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <state key="selected">
                                         <color key="titleColor" red="0.8862745098" green="0.90980392160000001" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
-                                    <state key="highlighted">
+                                    <state key="highlighted" image="down_highlighted">
                                         <color key="titleColor" red="0.8862745098" green="0.90980392160000001" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="lowerTemperature" destination="-1" eventType="touchUpInside" id="q2t-DI-DFV"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.44142741800000002" green="1" blue="0.83475636590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -354,7 +359,7 @@
                                 <constraint firstItem="KyS-ND-QIl" firstAttribute="top" secondItem="HEc-jl-q0Y" secondAttribute="bottom" constant="10" id="Li0-7N-zZo"/>
                                 <constraint firstAttribute="trailing" secondItem="HEc-jl-q0Y" secondAttribute="trailing" id="Qop-Ro-exi"/>
                                 <constraint firstItem="lmZ-Af-pep" firstAttribute="top" secondItem="weR-Ax-y2M" secondAttribute="top" id="RQP-jU-6T0"/>
-                                <constraint firstItem="v0o-4l-CJp" firstAttribute="leading" secondItem="KyS-ND-QIl" secondAttribute="trailing" constant="30" id="TSz-0N-v9a"/>
+                                <constraint firstItem="v0o-4l-CJp" firstAttribute="leading" secondItem="KyS-ND-QIl" secondAttribute="trailing" constant="20" id="TSz-0N-v9a"/>
                                 <constraint firstItem="sxu-84-EPd" firstAttribute="leading" secondItem="vVe-nH-6M0" secondAttribute="leading" id="UNV-2S-kGj"/>
                                 <constraint firstItem="mib-BK-msW" firstAttribute="top" secondItem="sxu-84-EPd" secondAttribute="top" id="UTN-PU-COk"/>
                                 <constraint firstItem="lmZ-Af-pep" firstAttribute="width" secondItem="weR-Ax-y2M" secondAttribute="width" id="W7y-N5-5L6"/>
@@ -364,8 +369,8 @@
                                 <constraint firstItem="ar2-Ge-kqr" firstAttribute="top" secondItem="KyS-ND-QIl" secondAttribute="top" id="aLO-89-5wA"/>
                                 <constraint firstItem="mib-BK-msW" firstAttribute="leading" secondItem="sxu-84-EPd" secondAttribute="trailing" constant="10" id="ane-7Y-cZq"/>
                                 <constraint firstItem="mib-BK-msW" firstAttribute="height" secondItem="sxu-84-EPd" secondAttribute="height" id="dDk-38-7qU"/>
-                                <constraint firstItem="ar2-Ge-kqr" firstAttribute="leading" secondItem="vVe-nH-6M0" secondAttribute="leading" constant="30" id="fbp-WE-n3G"/>
-                                <constraint firstAttribute="trailing" secondItem="v0o-4l-CJp" secondAttribute="trailing" constant="30" id="gGc-NH-Hhq"/>
+                                <constraint firstItem="ar2-Ge-kqr" firstAttribute="leading" secondItem="vVe-nH-6M0" secondAttribute="leading" constant="20" id="fbp-WE-n3G"/>
+                                <constraint firstAttribute="trailing" secondItem="v0o-4l-CJp" secondAttribute="trailing" constant="20" id="gGc-NH-Hhq"/>
                                 <constraint firstItem="7aR-No-EUT" firstAttribute="centerY" secondItem="vVe-nH-6M0" secondAttribute="centerY" id="gvd-8i-dHo"/>
                                 <constraint firstItem="7aR-No-EUT" firstAttribute="top" secondItem="KyS-ND-QIl" secondAttribute="bottom" constant="10" id="hT6-Qr-KeR"/>
                                 <constraint firstItem="HEc-jl-q0Y" firstAttribute="leading" secondItem="vVe-nH-6M0" secondAttribute="leading" id="lWV-A7-amV"/>
@@ -376,7 +381,7 @@
                                 <constraint firstItem="weR-Ax-y2M" firstAttribute="height" secondItem="mib-BK-msW" secondAttribute="height" id="opY-ep-q4j"/>
                                 <constraint firstItem="weR-Ax-y2M" firstAttribute="width" secondItem="mib-BK-msW" secondAttribute="width" id="qcd-ed-2UP"/>
                                 <constraint firstItem="sxu-84-EPd" firstAttribute="top" secondItem="7aR-No-EUT" secondAttribute="bottom" constant="10" id="siE-Gf-FoW"/>
-                                <constraint firstItem="KyS-ND-QIl" firstAttribute="leading" secondItem="ar2-Ge-kqr" secondAttribute="trailing" constant="30" id="xsl-bd-keW"/>
+                                <constraint firstItem="KyS-ND-QIl" firstAttribute="leading" secondItem="ar2-Ge-kqr" secondAttribute="trailing" constant="20" id="xsl-bd-keW"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -412,7 +417,11 @@
     </objects>
     <resources>
         <image name="close" width="64" height="64"/>
-        <image name="trunoff" width="64" height="64"/>
-        <image name="turnon" width="64" height="64"/>
+        <image name="down" width="44" height="44"/>
+        <image name="down_highlighted" width="44" height="44"/>
+        <image name="turnoff" width="44" height="44"/>
+        <image name="turnon" width="44" height="44"/>
+        <image name="up" width="44" height="44"/>
+        <image name="up_highlighted" width="44" height="44"/>
     </resources>
 </document>

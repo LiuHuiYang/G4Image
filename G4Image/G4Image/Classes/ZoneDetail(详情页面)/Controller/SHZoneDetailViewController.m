@@ -160,7 +160,6 @@ const CGFloat SHDeviceButtonPadding = 5;
         
         [self saveCurrentZone];
     }
-    
 }
 
 /// 保存当前区域

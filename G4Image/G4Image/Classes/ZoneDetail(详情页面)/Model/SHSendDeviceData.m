@@ -8,6 +8,17 @@
 
 #import "SHSendDeviceData.h"
 
+#define SHDeviceButtonTypeAirConditioningStatusON (@"ON")
+#define SHDeviceButtonTypeAirConditioningStatusOFF (@"OFF")
+
+#define SHDeviceButtonTypeCurtainStatusON (@"OPEN")
+#define SHDeviceButtonTypeCurtainStatusOFF (@"CLOSE")
+
+#define SHDeviceButtonTypeAudioStatusON (@"PLAY")
+#define SHDeviceButtonTypeAudioStatusOFF (@"END")
+
+#define SHDeviceButtonTypeMediaTVStatusON (@"ON")
+#define SHDeviceButtonTypeMediaTVStatusOFF (@"OFF")
 
 /// 灯光的最高亮度
 const Byte lightValue = 100;
@@ -43,10 +54,8 @@ const Byte maxVol = 80; // 其它只有80
     // 获取按钮当前的值
     NSString *title = [button titleForState:UIControlStateNormal];
     
-    // 目标亮度
-    // 有值就是0，第一次开灯或没有亮度就是开灯最亮（总之是相反的状态）
-    Byte brightness = ([title isEqualToString:@"Light"] || ![title integerValue]) ?
-    lightValue : 0;
+    // 目标亮度 有值就是0，第一次开灯或没有亮度就是开灯最亮（总之是相反的状态）
+    Byte brightness = ![title integerValue] ? lightValue : 0;
     
     // 开始发送指令
     [button setTitle:[NSString stringWithFormat:@"%d%%", brightness] forState:UIControlStateNormal];
@@ -101,12 +110,12 @@ const Byte maxVol = 80; // 其它只有80
 + (void)acOnAndOff:(SHDeviceButton *)button {
     
     // 获得当前按钮的值并设置改变的状态
-    NSString *status = [[button titleForState:UIControlStateNormal] isEqualToString:@"OFF"] ? @"ON" : @"OFF";
+    NSString *status = [[button titleForState:UIControlStateNormal] isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF] ? SHDeviceButtonTypeAirConditioningStatusON: SHDeviceButtonTypeAirConditioningStatusOFF;
     
     // 设置显示
     [button setTitle:status forState:UIControlStateNormal];
     
-    Byte acOnAndOff = ([status isEqualToString:@"OFF"]) ? 0X00 : 0x01;
+    Byte acOnAndOff = ([status isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) ? 0X00 : 0x01;
     
     Byte acData[] = {0X03, acOnAndOff};
     
@@ -129,12 +138,12 @@ const Byte maxVol = 80; // 其它只有80
     
     Byte currentValue = [title integerValue];
     
-    if ([title isEqualToString:@"OFF"]) {
+    if ([title isEqualToString:SHDeviceButtonTypeAirConditioningStatusOFF]) {
         [MBProgressHUD showWarning:@"turn on the air conditioner"];
         return; // 空调是关闭状态不能调温度
     }
     
-    if ([title isEqualToString:@"ON"]) {
+    if ([title isEqualToString:SHDeviceButtonTypeAirConditioningStatusON]) {
         currentValue = maxTempture;
     }
     
@@ -170,12 +179,12 @@ const Byte maxVol = 80; // 其它只有80
 /// 播放或结束音乐
 + (void)musicPlayAndStop:(SHDeviceButton *)button {
     
-    NSString *status = [button.currentTitle isEqualToString:@"END"] ? @"PLAY" : @"END";
+    NSString *status = ([button.currentTitle isEqualToString:SHDeviceButtonTypeAudioStatusOFF] || !button.currentTitle) ? SHDeviceButtonTypeAudioStatusON : SHDeviceButtonTypeAudioStatusOFF;
     
     // 设置显示
     [button setTitle:status forState:UIControlStateNormal];
     
-    Byte playOrEnd = ([status isEqualToString:@"PLAY"]) ? 0X03 : 0X04;
+    Byte playOrEnd = ([status isEqualToString:SHDeviceButtonTypeAudioStatusON]) ? 0X03 : 0X04;
     
     Byte sonData[4] = {0X04, playOrEnd, 0X00, 0X00};
 
@@ -199,12 +208,12 @@ const Byte maxVol = 80; // 其它只有80
     // 设定音量大小
     Byte voice = [title integerValue];
     
-    if ([title isEqualToString:@"END"]) {
+    if ([title isEqualToString:SHDeviceButtonTypeAudioStatusOFF]) {
         [MBProgressHUD showWarning:@"No music settings are invalid"];
         return;
     }
     
-    if ([title isEqualToString:@"PLAY"]) {
+    if ([title isEqualToString:SHDeviceButtonTypeAudioStatusON]) {
         voice = maxVol * 0.5;
     }
     
@@ -244,7 +253,7 @@ const Byte maxVol = 80; // 其它只有80
     SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
     
     // 获得当前按钮标题
-    if ([[button titleForState:UIControlStateNormal] isEqualToString:@"END"]) {
+    if ([[button titleForState:UIControlStateNormal] isEqualToString:SHDeviceButtonTypeAudioStatusOFF]) {
         [MBProgressHUD showWarning:@"No music settings are invalid"];
         return;
     }
@@ -283,13 +292,13 @@ const Byte maxVol = 80; // 其它只有80
 + (void)curtainOpenOrClose:(SHDeviceButton *)button {
     
     // 获得当前按钮的值并设置改变的状态
-    NSString *status = [button.currentTitle isEqualToString:@"Close"] ? @"Open" : @"Close";
+    NSString *status = ([button.currentTitle isEqualToString:SHDeviceButtonTypeCurtainStatusOFF] || !button.currentTitle) ? SHDeviceButtonTypeCurtainStatusON : SHDeviceButtonTypeCurtainStatusOFF;
     
     // 设置显示
     [button setTitle:status forState:UIControlStateNormal];
     
     // 打开和关闭通道
-    Byte curtainStartOrStop = ([status isEqualToString:@"Close"]) ? button.buttonPara1 : button.buttonPara2;
+    Byte curtainStartOrStop = ([status isEqualToString:SHDeviceButtonTypeCurtainStatusOFF]) ? button.buttonPara1 : button.buttonPara2;
     
     // 和Dimmer一样
     Byte curtainData[] = {curtainStartOrStop, 100, 0, 0};
@@ -303,12 +312,12 @@ const Byte maxVol = 80; // 其它只有80
 + (void)watchTv:(SHDeviceButton *)button {
     
     // 获得当前按钮的值并设置改变的状态
-    NSString *status = [[button titleForState:UIControlStateNormal] isEqualToString:@"OFF"] ? @"ON" : @"OFF";
+    NSString *status = ([[button titleForState:UIControlStateNormal] isEqualToString:SHDeviceButtonTypeMediaTVStatusOFF] || !button.currentTitle) ? SHDeviceButtonTypeMediaTVStatusON : SHDeviceButtonTypeMediaTVStatusOFF;
     
     // 设置显示
     [button setTitle:status forState:UIControlStateNormal];
     
-    Byte tvOnAndOff = ([status isEqualToString:@"ON"]) ? 0XFF : 0X0;
+    Byte tvOnAndOff = ([status isEqualToString:SHDeviceButtonTypeMediaTVStatusON]) ? 0XFF : 0X0;
     Byte data[] = {button.buttonPara1, tvOnAndOff};
     
     [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0XE01C targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:data length:sizeof(data)] needReSend:YES];

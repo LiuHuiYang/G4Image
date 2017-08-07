@@ -28,9 +28,12 @@
         修改空调的控制方式
         修改App中的UI的部分细节
  
+    V2.1.1 
+        修复iPad中空调控制面板关闭后，其余设备的数据同步问题。
+ 
     =============发布说明=====================
  
-    调试ID: com.SmartHomeGroup.G4Image
+ 调试ID: Mark.G4Image
  
  开发者账号:
     Username: Smart-hdl

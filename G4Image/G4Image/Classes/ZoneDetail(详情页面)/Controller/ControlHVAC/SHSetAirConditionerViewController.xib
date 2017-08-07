@@ -45,7 +45,7 @@
                         <action selector="closeButtonClick" destination="-1" eventType="touchUpInside" id="gvE-Ux-Uve"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="control panel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dme-2A-GUD">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Control Panel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dme-2A-GUD">
                     <rect key="frame" x="20" y="84" width="335" height="44"/>
                     <color key="backgroundColor" red="0.054901960780000002" green="0.49019607840000001" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -269,7 +269,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ar2-Ge-kqr">
-                                    <rect key="frame" x="20" y="40" width="85" height="70"/>
+                                    <rect key="frame" x="20" y="40" width="85.5" height="70"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="up">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -285,7 +285,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-ND-QIl">
-                                    <rect key="frame" x="125" y="40" width="84.5" height="70"/>
+                                    <rect key="frame" x="125.5" y="40" width="84.5" height="70"/>
                                     <color key="backgroundColor" red="0.054901960784313725" green="0.49019607843137253" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                     <state key="normal" title="0°C">
@@ -353,7 +353,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-4l-CJp">
-                                    <rect key="frame" x="229.5" y="40" width="85.5" height="70"/>
+                                    <rect key="frame" x="230" y="40" width="85" height="70"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="down">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

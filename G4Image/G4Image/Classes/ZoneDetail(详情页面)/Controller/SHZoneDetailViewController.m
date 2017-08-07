@@ -14,7 +14,7 @@
 #import "SHSQLiteManager.h"
 
 #import "SHSelectColorViewController.h"
-
+#import "SHSetAirConditionerViewController.h"
 
 #import "SHSetAreaView.h"
 #import "SHZoneDetailViewTitleView.h"
@@ -22,7 +22,7 @@
 /// 按钮间距
 const CGFloat SHDeviceButtonPadding = 5;
 
-@interface SHZoneDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate, SHUdpSocketDelegate, SHSetAreaViewDelegate>
+@interface SHZoneDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate, SHSetAreaViewDelegate>
 
 
 /// 选择不同的设备列表
@@ -202,10 +202,10 @@ const CGFloat SHDeviceButtonPadding = 5;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [SHUdpSocket shareSHUdpSocket].delegate = self;
-    
     // 禁止scrollView缩放
     self.showZoneView.scrollView.pinchGestureRecognizer.enabled = NO;
+    
+    [SHUdpSocket shareSHUdpSocket].delegate = self;
     
     // 给当前所有的设备按钮来读取状态
     for (SHDeviceButton *button in self.zone.allDeviceButtonInCurrentZone) {
@@ -535,7 +535,13 @@ const CGFloat SHDeviceButtonPadding = 5;
 /// 控制空调的显示
 - (void)controlAirConditioning:(SHDeviceButton *)button {
 
-    [SHSendDeviceData setAirConditioning:button];
+//    [SHSendDeviceData setAirConditioning:button];
+    
+    SHSetAirConditionerViewController *setAirConditionerController = [[SHSetAirConditionerViewController alloc] init];
+    
+    setAirConditionerController.sourceController = self;
+    
+    [setAirConditionerController show:button];
 }
 
 /// 开关点击

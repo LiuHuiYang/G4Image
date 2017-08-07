@@ -7,8 +7,12 @@
 //
 
 #import "SHViewController.h"
+#import "SHZoneDetailViewController.h"
 
 @interface SHSetAirConditionerViewController : SHViewController
+
+/// 源控制器
+@property (strong, nonatomic) SHZoneDetailViewController *sourceController;
 
 // 显示界面
 - (void)show:(SHDeviceButton *)button;

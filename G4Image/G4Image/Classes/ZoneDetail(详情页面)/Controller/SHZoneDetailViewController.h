@@ -9,7 +9,7 @@
 #import "SHViewController.h"
 #import "SHZone.h"
 
-@interface SHZoneDetailViewController : SHViewController
+@interface SHZoneDetailViewController : SHViewController <SHUdpSocketDelegate>
 
 /// 区域模型
 @property (strong, nonatomic) SHZone *zone;

@@ -533,7 +533,18 @@
 /// 退出界面
 - (IBAction)closeButtonClick {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+     
+        [SHUdpSocket shareSHUdpSocket].delegate = self.sourceController;
+        
+        // 重新读一下状态
+        // 给当前所有的设备按钮来读取状态
+        for (SHDeviceButton *button in self.sourceController.zone.allDeviceButtonInCurrentZone) {
+            
+            [SHSendDeviceData readDeviceStatus:button];
+        }
+
+    }];
 }
 
 // MARK: - 显示界面

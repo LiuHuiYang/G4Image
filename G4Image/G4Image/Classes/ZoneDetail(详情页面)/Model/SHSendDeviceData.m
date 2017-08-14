@@ -83,13 +83,14 @@ const Byte maxVol = 80; // 其它只有80
     
     if (brightness >= 0 && brightness <= lightValue) {
         [button setTitle:[NSString stringWithFormat:@"%d%%", brightness] forState:UIControlStateNormal];
-        
-        // 每隔一段时间发送一次
-        if (!(brightness % 5)) {
+    
+        // 手势结束才发送
+        if (recognizer.state == UIGestureRecognizerStateEnded) {
             
             Byte lightData[4] = {button.buttonPara1, brightness, 0X0, 0X0};
             
             [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0x0031 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:lightData length:sizeof(lightData)] needReSend:YES];
+
         }
     }
     //  因为拖动起来一直是在递增，所以每次都要用setTranslation:方法制0这样才不至于不受控制般滑动出视图
@@ -201,7 +202,7 @@ const Byte maxVol = 80; // 其它只有80
     }
     
     if ([title isEqualToString:SHDeviceButtonTypeAudioStatusON]) {
-        voice = maxVol * 0.5;
+        voice = maxVol * 0.15;
     }
     
     //  横坐标上、纵坐标上拖动了多少
@@ -215,15 +216,15 @@ const Byte maxVol = 80; // 其它只有80
         // 显示成100
         [button setTitle:[NSString stringWithFormat:@"%d", voice] forState:UIControlStateNormal];
         
-        // 每隔一段时间发送一次 (会造成目标设备与发送设备不一致，但为了更加稳定不要每次都发送。)
-        if (!(voice % 4)) {
-            
+        // 手势结束才发发送
+        if (recognizer.state == UIGestureRecognizerStateEnded) {
             // 改变声音
             Byte array[4] = {0X05, 0X01, 0X03,  maxVol - voice };
             
             [[SHUdpSocket shareSHUdpSocket] sendDataWithOperatorCode:0x0218 targetSubnetID:button.subNetID targetDeviceID:button.deviceID additionalContentData:[NSMutableData dataWithBytes:array length:sizeof(array)] needReSend:YES];
         }
     }
+    
     //  因为拖动起来一直是在递增，所以每次都要用setTranslation:方法制0这样才不至于不受控制般滑动出视图
     [recognizer setTranslation:CGPointZero inView:button];
 }

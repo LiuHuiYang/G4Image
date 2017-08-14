@@ -280,12 +280,12 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeAirConditioning: { // 空调
             
-            [button addTarget:self action:@selector(controlAirConditioning:) forControlEvents:UIControlEventTouchUpInside];
+//            [button addTarget:self action:@selector(controlAirConditioning:) forControlEvents:UIControlEventTouchUpInside];
+                      
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(controlAirConditioning:button:)];
+            longPress.minimumPressDuration = 1.5;
+            [button addGestureRecognizer:longPress];
             
-            // 增加值变化
-//            UIPanGestureRecognizer *panMove = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(updateACTempture:)];
-//            [panMove setTranslation:CGPointZero inView:button];
-//            [button addGestureRecognizer:panMove];
         }
             break;
             
@@ -401,9 +401,12 @@ const CGFloat SHDeviceButtonPadding = 5;
     // 创建一个新的按钮
     SHDeviceButton *newButton = [SHDeviceButton deviceButtonType:button.deviceType];
     
-    newButton.bounds = button.bounds;
     newButton.frame_x = self.showZoneView.frame_CenterX;
     newButton.frame_y = self.showZoneView.frame_CenterX * 0.5 + (button.tag) * button.frame_height;
+    
+    // 新创建的的按钮大小再大一些
+    newButton.frame_width = button.frame_width * 1.1;
+    newButton.frame_height = button.frame_height * 1.1;
     
     // 添加到界面上
     [self.showZoneView.scrollView addSubview:newButton];
@@ -532,7 +535,18 @@ const CGFloat SHDeviceButtonPadding = 5;
     [SHSendDeviceData musicPlayAndStop:button];
 }
 
-/// 控制空调的显示
+/// 控制空调的显示（手势触发）
+- (void)controlAirConditioning:(UILongPressGestureRecognizer *)recognizer button:(SHDeviceButton *)button {
+    
+    // 必须是拖拽手势
+    if (![recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        return;
+    }
+    
+    [self controlAirConditioning:button];
+}
+
+/// 控制空调的显示（非手势触发）
 - (void)controlAirConditioning:(SHDeviceButton *)button {
 
 //    [SHSendDeviceData setAirConditioning:button];

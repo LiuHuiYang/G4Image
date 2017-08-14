@@ -30,6 +30,8 @@
  
     V2.1.1 
         修复iPad中空调控制面板关闭后，其余设备的数据同步问题。
+    V2.1.2 
+        修改出现空调控制面板的方式为长按
  
     =============发布说明=====================
  
@@ -49,10 +51,14 @@
  测试图片： https://image.baidu.com/search/detail?ct=503316480&z=3&ipn=d&word=家居摄影图片&step_word=&hs=0&pn=278&spn=0&di=43675242050&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=1471743946%2C436153727&os=889003505%2C588814333&simid=4167560949%2C534311626&adpicid=0&lpn=0&ln=1983&fr=&fmq=1494574823262_R&fm=result&ic=0&s=undefined&se=&sme=&tab=0&width=0&height=0&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic36.nipic.com%2F20131214%2F13935674_175856656106_2.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bgtrtv_z%26e3Bv54AzdH3Fzi7wgptAzdH3F89n8ldn_z%26e3Bip4s&gsm=f0&rpstart=0&rpnum=0
  
 
- 测试使用的参数 + 每个加10
-    普通灯泡: SubNetID : 1  DeviceID: 213 -> 223
-    LED :    SubNetID : 1  DeviceID: 214 -> 224
-    AC :     SubNetID : 1  DeviceID: 212 -> 222
-    Music:   SubNetID: 1   DeviceID: 211 -> 221
- 
+ 测试使用的参数
+ demokit
+    普通灯泡: SubNetID : 1  DeviceID:   223
+    LED :    SubNetID : 1  DeviceID:   224
+    AC :     SubNetID : 1  DeviceID:   222
+    Music:   SubNetID: 1   DeviceID: 2  221
+ ceo:
+    窗帘:               1             248  / 2open - 1cose
+    AC: 1 - 52
+    led: 1 - 167
  */

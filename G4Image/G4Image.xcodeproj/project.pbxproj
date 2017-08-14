@@ -934,7 +934,7 @@
 			baseConfigurationReference = 02689ACB96C59B1CA210629F /* Pods-G4Image.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = TMD6A3D429;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/G4Image/G4Image.pch";
 				INFOPLIST_FILE = G4Image/Info.plist;
@@ -942,8 +942,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SmartHome.G4Image;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "14eb13db-199e-4ce5-8b2b-12d27e46d023";
-				PROVISIONING_PROFILE_SPECIFIER = G4imageAppStore;
+				PROVISIONING_PROFILE = "0f01fdb9-a590-4b70-95f8-4d705e02d2f6";
+				PROVISIONING_PROFILE_SPECIFIER = G4ImageDebug;
 			};
 			name = Debug;
 		};

@@ -3,6 +3,7 @@
 
 #import "UIDevice+IPAddresses.h"
 
+#import <SystemConfiguration/CaptiveNetwork.h>
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 #import <net/if.h>
@@ -24,7 +25,7 @@ NSString *IP_ADDR_IPV6 = @"ipv6";
 
 /**
  十进制ip字符串对应的数组
-
+ 
  @return 结果数组
  */
 + (NSArray *)ipAddressStringByDecimal {
@@ -34,31 +35,31 @@ NSString *IP_ADDR_IPV6 = @"ipv6";
 
 /**
  获得iPV4或者iPv6的地址
-
+ 
  @param isIPv4 是否为iPV4 (YES - ipv4, NO - ipV6)
  @return ip地址字符串
  */
 + (NSString *)getIPAddress:(BOOL)isIPv4 {
-
+    
     // 初始化查询字典的key
     NSArray *searchKeyArray = isIPv4 ?
     @[
-        [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV4],
-        [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV6],
-        [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV4],
-        [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV6],
-        [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV4],
-        [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV6]
-    ] :
+      [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV4],
+      [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV6],
+      [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV4],
+      [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV6],
+      [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV4],
+      [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV6]
+      ] :
     
     @[
-       [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV6],
-       [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV4],
-       [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV6],
-       [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV4],
-       [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV6],
-       [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV4]
-    ];
+      [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV6],
+      [iOS_VPN stringByAppendingPathComponent:IP_ADDR_IPV4],
+      [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV6],
+      [iOS_WIFI stringByAppendingPathComponent:IP_ADDR_IPV4],
+      [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV6],
+      [iOS_CELLULAR stringByAppendingPathComponent:IP_ADDR_IPV4]
+      ];
     
     // 获得所有的ip地址
     NSDictionary *addresses = [self getIPAddresses];
@@ -112,9 +113,9 @@ NSString *IP_ADDR_IPV6 = @"ipv6";
         if (firstMatch) {
             NSRange resultRange = [firstMatch rangeAtIndex:0];
             
-            // 匹配结果 -> 返回值 
+            // 匹配结果 -> 返回值
             [ipAddress substringWithRange:resultRange];
-
+            
             
             return YES;
         }
@@ -165,5 +166,44 @@ NSString *IP_ADDR_IPV6 = @"ipv6";
     }
     return [addresses count] ? addresses : nil;
 }
+
+
+/**
+ 获得当前wifi的名称
+ 
+ @return 当前手机连接的wifi名称
+ */
++ (NSString *)getWifiName {
+    
+    NSString *wifiName = nil;
+    
+    CFArrayRef wifiInterfaces = CNCopySupportedInterfaces();
+    
+    if (!wifiInterfaces) {
+        return nil;
+    }
+    
+    NSArray *interfaces = (__bridge NSArray *)wifiInterfaces;
+    
+    for (NSString *interfaceName in interfaces) {
+        
+        CFDictionaryRef dictRef = CNCopyCurrentNetworkInfo((__bridge CFStringRef)(interfaceName));
+        
+        if (dictRef) {
+            NSDictionary *networkInfo = (__bridge NSDictionary *)dictRef;
+            
+            //            NSLog(@"network info -> %@", networkInfo);
+            
+            wifiName = [networkInfo objectForKey:(__bridge NSString*)kCNNetworkInfoKeySSID];
+            
+            CFRelease(dictRef);
+        }
+    }
+    
+    CFRelease(wifiInterfaces);
+    
+    return wifiName;
+}
+
 
 @end

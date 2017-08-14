@@ -22,4 +22,11 @@
  */
 + (NSString *)getIPAddress:(BOOL)isIPv4;
 
+/**
+ 获得当前wifi的名称
+ 
+ @return 当前手机连接的wifi名称
+ */
++ (NSString *)getWifiName;
+
 @end

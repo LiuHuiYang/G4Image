@@ -79,7 +79,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6W-F2-Wsn">
                                     <rect key="frame" x="125" y="10" width="85" height="105"/>
                                     <color key="backgroundColor" red="0.054901960784313725" green="0.49019607843137253" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                     <state key="normal" title="0°C">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -269,7 +269,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ar2-Ge-kqr">
-                                    <rect key="frame" x="20" y="40" width="85.5" height="70"/>
+                                    <rect key="frame" x="20" y="40" width="85" height="70"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="up">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -285,7 +285,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-ND-QIl">
-                                    <rect key="frame" x="125.5" y="40" width="84.5" height="70"/>
+                                    <rect key="frame" x="125" y="40" width="84.5" height="70"/>
                                     <color key="backgroundColor" red="0.054901960784313725" green="0.49019607843137253" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                     <state key="normal" title="0°C">
@@ -353,7 +353,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-4l-CJp">
-                                    <rect key="frame" x="230" y="40" width="85" height="70"/>
+                                    <rect key="frame" x="229.5" y="40" width="85.5" height="70"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="down">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

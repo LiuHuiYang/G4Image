@@ -97,12 +97,20 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = SHGlobalBackgroundColor;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
     
     // 设置代理
     [SHUdpSocket shareSHUdpSocket].delegate = self;
     
     // 设置默认是摄氏温度
     self.isCelsiusFlag = YES;
+    
+    // 读取一下空调的状态
+    [self readCurrentButtonForAirConditioningStatus];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -554,8 +562,6 @@
     // 记录按钮
     self.currentButton = button;
     
-    // 读取一下空调的状态
-    [self readCurrentButtonForAirConditioningStatus];
     
     // 设置弹出模式
     self.modalPresentationStyle = UIModalPresentationPopover;

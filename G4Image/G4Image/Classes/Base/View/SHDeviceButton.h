@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SHDeviceOperatorKindAndStatus.h"
-
 
 /// 按钮类型
 typedef enum  {

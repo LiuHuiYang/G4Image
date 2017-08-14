@@ -100,7 +100,6 @@
 		8B36BD291F340F2300F282B3 /* SHSetAirConditionerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSetAirConditionerViewController.h; sourceTree = "<group>"; };
 		8B36BD2A1F340F2300F282B3 /* SHSetAirConditionerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSetAirConditionerViewController.m; sourceTree = "<group>"; };
 		8B36BD2B1F340F2300F282B3 /* SHSetAirConditionerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHSetAirConditionerViewController.xib; sourceTree = "<group>"; };
-		8B36BD2E1F34106E00F282B3 /* SHDeviceOperatorKindAndStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHDeviceOperatorKindAndStatus.h; sourceTree = "<group>"; };
 		8B3F7F2B1F332C7E00685441 /* G4Image.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = G4Image.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3F7F2F1F332C7E00685441 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8B3F7F311F332C7E00685441 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -473,7 +472,6 @@
 			children = (
 				8B6D0B061F334F5100271E91 /* SHDeviceButton.h */,
 				8B6D0B071F334F5100271E91 /* SHDeviceButton.m */,
-				8B36BD2E1F34106E00F282B3 /* SHDeviceOperatorKindAndStatus.h */,
 			);
 			path = View;
 			sourceTree = "<group>";

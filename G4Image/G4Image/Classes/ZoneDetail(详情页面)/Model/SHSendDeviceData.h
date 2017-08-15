@@ -29,9 +29,6 @@
 /// 设置空调
 + (void)setAirConditioning:(SHDeviceButton *)button;
 
-/// 改变AC的温度值
-//+ (void)updateACTempture:(UIPanGestureRecognizer *)recognizer;
-
 
 // MARK: - Audio
 

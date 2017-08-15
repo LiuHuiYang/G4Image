@@ -11,7 +11,23 @@
 
 #import <UIKit/UIKit.h>
 
-// 空调温度范围
+// ============= 音乐控制相关的一些参数 =============
+
+// 音乐播放控制
+typedef enum  {
+    
+    SHAudoiPalyControlNone,
+    SHAudoiPalyControlPrevious,
+    SHAudoiPalyControlNext,
+    SHAudoiPalyControlPlay,
+    SHAudoiPalyControlStop
+    
+} SHAudoiPalyControl;
+
+
+// ============= 空调的控制及相关的一些参数 =============
+
+// 空调温度范围(前两个对应的是摄氏温度的最大和最小值，后面两是华氏的最大与最小温度值)
 typedef enum {
     
     SHAirConditioningTemperatureRangeCentigradeMinimumValue = 16, // 0
@@ -24,7 +40,7 @@ typedef enum {
     
 } SHAirConditioningTemperatureRange;
 
-/// 空调控制类型
+/// 空调控制类型(设置方式)
 typedef enum {
     
     SHAirConditioningControlTypeOnAndOFF = 0X03,
@@ -53,6 +69,7 @@ typedef enum {
     SHAirConditioningFanSpeedKindLow
     
 } SHAirConditioningFanSpeedKind;
+
 
 /// 空调的工作模式
 typedef enum {
@@ -90,27 +107,12 @@ typedef enum {
 #define SHDeviceButtonTypeMediaTVStatusON (@"ON")
 #define SHDeviceButtonTypeMediaTVStatusOFF (@"OFF")
 
-// 音乐播放控制
-typedef enum  {
-    
-    SHAudoiPalyControlNone,
-    SHAudoiPalyControlPrevious,
-    SHAudoiPalyControlNext,
-    SHAudoiPalyControlPlay,
-    SHAudoiPalyControlStop
-    
-} SHAudoiPalyControl;
 
-
+// ============= UI界面常用的一些设置高度 =============
 
 /// 状态栏高度
 extern const CGFloat SHStatusHeight;
 
-/// 按钮宽度(iPhone)
-extern const CGFloat SHDeviceButtonWidthForPhone ;
-
-/// 按钮宽度(iPad)
-extern const CGFloat SHDeviceButtonWidthForPad;
 
 /// 导航栏的高度
 extern const CGFloat SHNavigationBarHeight ;

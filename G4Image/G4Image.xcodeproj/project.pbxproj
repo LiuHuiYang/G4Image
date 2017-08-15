@@ -73,7 +73,6 @@
 		8B6D0B0A1F334F5100271E91 /* SHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0AF81F334F5100271E91 /* SHNavigationController.m */; };
 		8B6D0B0B1F334F5100271E91 /* SHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0AFA1F334F5100271E91 /* SHViewController.m */; };
 		8B6D0B0F1F334F5100271E91 /* SHConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B041F334F5100271E91 /* SHConstant.m */; };
-		8B6D0B101F334F5100271E91 /* SHDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B071F334F5100271E91 /* SHDeviceButton.m */; };
 		8B6D0B261F334F8800271E91 /* SHSelectColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B161F334F8800271E91 /* SHSelectColorViewController.m */; };
 		8B6D0B271F334F8800271E91 /* SHZoneDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B181F334F8800271E91 /* SHZoneDetailViewController.m */; };
 		8B6D0B281F334F8800271E91 /* SHAnalyDeviceData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B1B1F334F8800271E91 /* SHAnalyDeviceData.m */; };
@@ -91,6 +90,7 @@
 		8B6D0B5F1F335C4000271E91 /* SHZoneDetailViewTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B5D1F335C4000271E91 /* SHZoneDetailViewTitleView.m */; };
 		8B6D0B601F335C4000271E91 /* SHZoneDetailViewTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */; };
 		8B6D0B691F3367E400271E91 /* UIImage+Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D0B681F3367E400271E91 /* UIImage+Path.m */; };
+		8B9843891F427D0B0055A7D5 /* SHDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9843881F427D0B0055A7D5 /* SHDeviceButton.m */; };
 		AABF0B72819B48ADE9F71AE7 /* libPods-G4Image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7209658D91EDA7A398412AE1 /* libPods-G4Image.a */; };
 /* End PBXBuildFile section */
 
@@ -188,8 +188,6 @@
 		8B6D0AFA1F334F5100271E91 /* SHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHViewController.m; sourceTree = "<group>"; };
 		8B6D0B031F334F5100271E91 /* SHConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHConstant.h; sourceTree = "<group>"; };
 		8B6D0B041F334F5100271E91 /* SHConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHConstant.m; sourceTree = "<group>"; };
-		8B6D0B061F334F5100271E91 /* SHDeviceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDeviceButton.h; sourceTree = "<group>"; };
-		8B6D0B071F334F5100271E91 /* SHDeviceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDeviceButton.m; sourceTree = "<group>"; };
 		8B6D0B151F334F8800271E91 /* SHSelectColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSelectColorViewController.h; sourceTree = "<group>"; };
 		8B6D0B161F334F8800271E91 /* SHSelectColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSelectColorViewController.m; sourceTree = "<group>"; };
 		8B6D0B171F334F8800271E91 /* SHZoneDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHZoneDetailViewController.h; sourceTree = "<group>"; };
@@ -220,6 +218,8 @@
 		8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHZoneDetailViewTitleView.xib; sourceTree = "<group>"; };
 		8B6D0B671F3367E400271E91 /* UIImage+Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Path.h"; sourceTree = "<group>"; };
 		8B6D0B681F3367E400271E91 /* UIImage+Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Path.m"; sourceTree = "<group>"; };
+		8B9843871F427D0B0055A7D5 /* SHDeviceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDeviceButton.h; sourceTree = "<group>"; };
+		8B9843881F427D0B0055A7D5 /* SHDeviceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDeviceButton.m; sourceTree = "<group>"; };
 		A777A54EB86D4547454E0FFE /* Pods-G4Image.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G4Image.release.xcconfig"; path = "Pods/Target Support Files/Pods-G4Image/Pods-G4Image.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -470,8 +470,6 @@
 		8B6D0B051F334F5100271E91 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8B6D0B061F334F5100271E91 /* SHDeviceButton.h */,
-				8B6D0B071F334F5100271E91 /* SHDeviceButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -520,6 +518,7 @@
 		8B6D0B1E1F334F8800271E91 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8B9843861F427D0B0055A7D5 /* DeviceButton */,
 				8B6D0B5B1F335C4000271E91 /* SetTitle */,
 				8B6D0B551F33559B00271E91 /* setArea */,
 				8B6D0B1F1F334F8800271E91 /* ColorWheel */,
@@ -604,6 +603,15 @@
 				8B6D0B5E1F335C4000271E91 /* SHZoneDetailViewTitleView.xib */,
 			);
 			path = SetTitle;
+			sourceTree = "<group>";
+		};
+		8B9843861F427D0B0055A7D5 /* DeviceButton */ = {
+			isa = PBXGroup;
+			children = (
+				8B9843871F427D0B0055A7D5 /* SHDeviceButton.h */,
+				8B9843881F427D0B0055A7D5 /* SHDeviceButton.m */,
+			);
+			path = DeviceButton;
 			sourceTree = "<group>";
 		};
 		F7B829C4E645BF294AE1F34C /* Pods */ = {
@@ -805,7 +813,6 @@
 				8B6D0ADE1F334E9700271E91 /* UIColor+set.m in Sources */,
 				8B3F7F331F332C7E00685441 /* AppDelegate.m in Sources */,
 				8B6D0B2B1F334F8800271E91 /* UIImageView+ColorAtPoint.m in Sources */,
-				8B6D0B101F334F5100271E91 /* SHDeviceButton.m in Sources */,
 				8B3F7F301F332C7E00685441 /* main.m in Sources */,
 				8B6D0B591F33559B00271E91 /* SHSetAreaView.m in Sources */,
 				8B6D0AF41F334F1800271E91 /* SHZone.m in Sources */,
@@ -817,6 +824,7 @@
 				8B6D0B0F1F334F5100271E91 /* SHConstant.m in Sources */,
 				8B6D0B321F334FAB00271E91 /* SHSettingViewController.m in Sources */,
 				8B6D0B271F334F8800271E91 /* SHZoneDetailViewController.m in Sources */,
+				8B9843891F427D0B0055A7D5 /* SHDeviceButton.m in Sources */,
 				8B6D0AD81F334E9700271E91 /* FileTools.m in Sources */,
 				8B6D0B291F334F8800271E91 /* SHSendDeviceData.m in Sources */,
 				8B6D0B471F3350AE00271E91 /* SHZonePreViewController.m in Sources */,

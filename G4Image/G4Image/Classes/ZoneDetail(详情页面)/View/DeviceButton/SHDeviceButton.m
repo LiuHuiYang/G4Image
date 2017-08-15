@@ -12,12 +12,6 @@
 
 @interface SHDeviceButton ()
 
-///// 图片
-//@property (weak, nonatomic) IBOutlet UIImageView *iconView;
-//
-///// 描述文字
-//@property (weak, nonatomic) IBOutlet UILabel *descLabel;
-
 /// 图片名称
 @property (strong, nonatomic) NSMutableArray *imageNames;
 
@@ -55,7 +49,6 @@
 
 
 
-
 /// 字典转换为模型
 + (instancetype)buttonWithDictionary:(NSDictionary *)dictionary {
     
@@ -71,8 +64,6 @@
     
     btn.zoneID = [[dictionary objectForKey:@"zoneID"] integerValue];
     btn.buttonID = [[dictionary objectForKey:@"buttonID"] integerValue];
-    
-//    btn.deviceType = (SHDeviceButtonType)[dictionary[@"deviceType"] integerValue];
     
     btn.buttonRectSaved = CGRectFromString(dictionary[@"buttonRectSaved"]);
     
@@ -104,6 +95,7 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     }
+    
     return self;
 }
 

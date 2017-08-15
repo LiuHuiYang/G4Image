@@ -103,8 +103,7 @@ const Byte maxVol = 80; // 其它只有80
 + (void)setAirConditioning:(SHDeviceButton *)button {
     
     // 获得当前的状态
-    
-        SHSetAirConditionerViewController *setAirConditionerController = [[SHSetAirConditionerViewController alloc] init];
+    SHSetAirConditionerViewController *setAirConditionerController = [[SHSetAirConditionerViewController alloc] init];
         [setAirConditionerController show:button];
     
 }

@@ -279,12 +279,6 @@ const CGFloat SHDeviceButtonPadding = 5;
             break;
             
         case SHDeviceButtonTypeAirConditioning: { // 空调
-                      
-//            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(controlAirConditioningByGestureRecognizer:)];
-//            longPress.minimumPressDuration = 1.5;
-//            [button addGestureRecognizer:longPress];
-            
-//            [button addTarget:self action:@selector(controlAirConditioningByButton:) forControlEvents:UIControlEventTouchUpInside];
             
             UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(controlAirConditioningByGestureRecognizer:)];
             
@@ -303,11 +297,11 @@ const CGFloat SHDeviceButtonPadding = 5;
             
             // 设置代理
             panMove.delegate = self;
-
+            
             [panMove setTranslation:CGPointZero inView:button];
             [button addGestureRecognizer:panMove];
             
-
+            
             // 2.清扫手势上一首
             UISwipeGestureRecognizer *toLeftDetail = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(toLeftAndRightDetail:)];
             toLeftDetail.delegate = self;
@@ -329,7 +323,7 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeCurtain: {
             
-             [button addTarget:self action:@selector(curtainPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(curtainPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
             
             break;
@@ -396,7 +390,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 /// 改变灯光的值
 - (void)updateLightValue:(UIPanGestureRecognizer *)recognizer {
-  
+    
     [SHSendDeviceData updateDimmerBrightness:recognizer];
 }
 
@@ -410,7 +404,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     newButton.frame_y = self.showZoneView.frame_CenterX * 0.5 + (button.tag) * button.frame_height;
     
     // 新创建的的按钮大小再大一些
-    CGFloat scale = 1.12;
+    CGFloat scale = 1.15;
     newButton.frame_width = button.frame_width * scale;
     newButton.frame_height = button.frame_height * scale;
     
@@ -431,7 +425,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     // 设置图片
     switch (button.deviceType) {
         case  SHDeviceButtonTypeLight:
-
+            
             [newButton addTarget:self action:@selector(lightPressed:) forControlEvents:UIControlEventTouchUpInside];
             break;
             
@@ -454,13 +448,13 @@ const CGFloat SHDeviceButtonPadding = 5;
             
         case SHDeviceButtonTypeMediaTV:
             
-             [newButton addTarget:self action:@selector(watchTvPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [newButton addTarget:self action:@selector(watchTvPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
             
         case SHDeviceButtonTypeLed:
             
-             [newButton addTarget:self action:@selector(ledPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [newButton addTarget:self action:@selector(ledPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
             
@@ -531,7 +525,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 /// 窗帘移动
 - (void)curtainPressed:(SHDeviceButton *)button {
-
+    
     [SHSendDeviceData curtainOpenOrClose:button];
 }
 
@@ -550,7 +544,7 @@ const CGFloat SHDeviceButtonPadding = 5;
     }
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-       
+        
         // 获得按钮
         SHDeviceButton *button = (SHDeviceButton *)recognizer.view;
         
@@ -564,7 +558,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 /// 控制空调的显示（非手势触发）
 - (void)airConditioningPressed:(SHDeviceButton *)button {
-
+    
     SHSetAirConditionerViewController *setAirConditionerController = [[SHSetAirConditionerViewController alloc] init];
     
     setAirConditionerController.sourceController = self;
@@ -580,7 +574,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 /// LED的开关被点击
 - (void)ledPressed:(SHDeviceButton *)button {
-
+    
     [SHSendDeviceData ledOnAndOff:button];
 }
 
@@ -597,13 +591,13 @@ const CGFloat SHDeviceButtonPadding = 5;
 
 // 设置区域列表
 - (SHSetAreaView *)setAreaView {
-        
-        if (!_setAreaView) {
-            _setAreaView = [SHSetAreaView setAreaView];
-            _setAreaView.delegate = self;
-        }
-        return _setAreaView;
+    
+    if (!_setAreaView) {
+        _setAreaView = [SHSetAreaView setAreaView];
+        _setAreaView.delegate = self;
     }
+    return _setAreaView;
+}
 
 /// 选择设备列表框
 - (UIScrollView *)deviceListView {
@@ -612,7 +606,7 @@ const CGFloat SHDeviceButtonPadding = 5;
         
         _deviceListView = [[UIScrollView alloc] init];
         _deviceListView.showsVerticalScrollIndicator = YES;
-//        _deviceListView.pagingEnabled = YES;
+        //        _deviceListView.pagingEnabled = YES;
         
         _deviceListView.contentSize = CGSizeMake(0, self.deviceKinds.count * SHNavigationBarHeight);
         
@@ -632,7 +626,7 @@ const CGFloat SHDeviceButtonPadding = 5;
 }
 
 - (NSArray *)deviceKinds {
-
+    
     if (!_deviceKinds) {
         _deviceKinds =  @[@(SHDeviceButtonTypeLight), @(SHDeviceButtonTypeLed), @(SHDeviceButtonTypeAirConditioning), @(SHDeviceButtonTypeAudio),  @(SHDeviceButtonTypeCurtain), @(SHDeviceButtonTypeMediaTV)];
     }
@@ -651,13 +645,13 @@ const CGFloat SHDeviceButtonPadding = 5;
 /// 依据屏幕方向来匹配不同的位置
 - (void)viewDidLayoutSubviews {
     
-     self.setAreaView.frame = CGRectMake(self.view.frame_width - [SHSetAreaView areaViewSize].width, SHNavigationBarHeight, [SHSetAreaView areaViewSize].width, [SHSetAreaView areaViewSize].height);
+    self.setAreaView.frame = CGRectMake(self.view.frame_width - [SHSetAreaView areaViewSize].width, SHNavigationBarHeight, [SHSetAreaView areaViewSize].width, [SHSetAreaView areaViewSize].height);
     
     // 0.中间场景区域的图形
     self.showZoneView.frame = CGRectMake(0, SHNavigationBarHeight, self.view.frame_width, self.view.frame_height - SHNavigationBarHeight - SHTabBarHeight);
-        
+    
     // 2.选择设备列表
-     self.deviceListView.frame = CGRectMake(self.view.frame_width - self.setAreaView.frame_width, self.setAreaView.frame_height + self.setAreaView.frame_y, self.setAreaView.frame_width, self.setAreaView.frame_height);
+    self.deviceListView.frame = CGRectMake(self.view.frame_width - self.setAreaView.frame_width, self.setAreaView.frame_height + self.setAreaView.frame_y, self.setAreaView.frame_width, self.setAreaView.frame_height);
     
     for (NSUInteger i = 0; i < self.deviceListView.subviews.count; i++) {
         UIView *subView = self.deviceListView.subviews[i];
